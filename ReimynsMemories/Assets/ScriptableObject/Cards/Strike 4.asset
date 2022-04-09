@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa76433189f66ff4b943845717aee06c, type: 3}
   m_Name: Strike 4
   m_EditorClassIdentifier: 
+  cardId: 4
   cardName: Strike
   effectText: Deal 7 damages
   cardFrontSprite: {fileID: 21300000, guid: 46602e6a7a1c92948a66ca95ce864863, type: 3}

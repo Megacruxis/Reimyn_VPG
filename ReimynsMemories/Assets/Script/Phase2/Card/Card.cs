@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Card : ScriptableObject
 {
+    [SerializeField] private int cardId;
     [SerializeField] private string cardName;
     [SerializeField] private string effectText;
 
@@ -26,6 +27,11 @@ public abstract class Card : ScriptableObject
     public Sprite GetCardFrontSprite()
     {
         return cardFrontSprite;
+    }
+
+    public int GetCardId()
+    {
+        return cardId;
     }
 
     public string GetCardStatus()

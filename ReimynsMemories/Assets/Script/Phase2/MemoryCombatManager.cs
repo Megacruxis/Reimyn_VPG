@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MemoryCombatManager : MonoBehaviour
 {
@@ -15,8 +16,12 @@ public class MemoryCombatManager : MonoBehaviour
     [Header("Emplacement where card can be positioned")]
     [SerializeField] private CardDisplayManager[] cardSlots;
 
+    public UnityEvent<CardDisplayManager> cardIsClickedEvent;
+
     private List<int> emptycardSlots;
     private int gridNumberOfSlots;
+    private int faceUpCardIndex;
+    private bool enoughtCardFaceUp;
 
     private void Awake()
     {
@@ -48,8 +53,11 @@ public class MemoryCombatManager : MonoBehaviour
         {
             Debug.LogError("Error in script MemoryCombatManager, number of card slots should be an even number");
         }
-
+        cardIsClickedEvent = new UnityEvent<CardDisplayManager>();
+        cardIsClickedEvent.AddListener(CardIsClicked);
         emptycardSlots = new List<int>();
+        faceUpCardIndex = -1;
+        enoughtCardFaceUp = false;
     }
 
     private void Start()
@@ -91,8 +99,62 @@ public class MemoryCombatManager : MonoBehaviour
                 }
                 int selectedSlot = emptycardSlots[Random.Range(0, emptycardSlots.Count)];
                 emptycardSlots.Remove(selectedSlot);
-                cardSlots[selectedSlot].SetCardInfo(selectedCard);
+                cardSlots[selectedSlot].SetCardInfo(selectedCard, this);
             }
         }
+    }
+
+    public void CardIsClicked(CardDisplayManager selectedCardManager)
+    {
+        int selectedCardIndex = numberOfColumn * selectedCardManager.GetSlotY() + selectedCardManager.GetSlotX();
+        if (faceUpCardIndex < 0)
+        {
+            selectedCardManager.FlipCard();
+            faceUpCardIndex = selectedCardIndex;
+            //apply the effect of the card when she is face up
+        }
+        else
+        {
+            if(!enoughtCardFaceUp)
+            {
+                if(selectedCardIndex != faceUpCardIndex)
+                {
+                    enoughtCardFaceUp = true;
+                    if (selectedCardManager.GetMyCard().GetCardId() == cardSlots[faceUpCardIndex].GetMyCard().GetCardId())
+                    {
+                        selectedCardManager.FlipCard();
+                        StartCoroutine(PairFound(selectedCardManager));
+                    }
+                    else
+                    {
+                        selectedCardManager.FlipCard();
+                        StartCoroutine(NotAPair(selectedCardManager));
+                    }
+                }
+            } 
+        }
+    }
+
+    private IEnumerator NotAPair(CardDisplayManager selectedCardManager)
+    {
+        yield return new WaitForSeconds(1f);
+        selectedCardManager.FlipCard();
+        cardSlots[faceUpCardIndex].FlipCard();
+        faceUpCardIndex = -1;
+        enoughtCardFaceUp = false;
+        //pass turn
+    }
+
+    private IEnumerator PairFound(CardDisplayManager selectedCardManager)
+    {
+        yield return new WaitForSeconds(1f);
+        selectedCardManager.FlipCard();
+        cardSlots[faceUpCardIndex].FlipCard();
+        selectedCardManager.HideCard();
+        cardSlots[faceUpCardIndex].HideCard();
+        faceUpCardIndex = -1;
+        enoughtCardFaceUp = false;
+        //cool animation
+        //pair effect
     }
 }

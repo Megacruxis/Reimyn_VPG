@@ -16,8 +16,9 @@ public class CardDisplayManager : MonoBehaviour
     [SerializeField] private int x;
     [SerializeField] private int y;
 
+    private bool coroutineAllowed, isFacedUp, isHidden;
     private Card myCard;
-    private bool coroutineAllowed, isFacedUp;
+    private MemoryCombatManager myManager;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class CardDisplayManager : MonoBehaviour
         myCard = null;
         coroutineAllowed = true;
         isFacedUp = false;
+        isHidden = false;
     }
 
     public int GetSlotX()
@@ -54,16 +56,30 @@ public class CardDisplayManager : MonoBehaviour
         return myCard;
     }
 
-    public void SetCardInfo(Card myCard)
+    /*
+     * Used by game manager to set the script info
+     */
+    public void SetCardInfo(Card myCard, MemoryCombatManager myManager)
     {
-        this.frontSprite = myCard.GetCardFrontSprite();
+        frontSprite = myCard.GetCardFrontSprite();
         this.myCard = myCard;
+        this.myManager = myManager;
     }
+
+
 
     /*
      * Start the coroutine that flip the card when clicked
      */
     private void OnMouseDown()
+    {
+        if(!isHidden)
+        {
+            myManager.cardIsClickedEvent.Invoke(this);
+        }
+    }
+
+    public void FlipCard()
     {
         if (coroutineAllowed)
         {
@@ -108,7 +124,18 @@ public class CardDisplayManager : MonoBehaviour
         }
 
         coroutineAllowed = true;
-
         isFacedUp = !isFacedUp;
+    }
+
+    public void HideCard()
+    {
+        isHidden = true;
+        transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    public void DisplayCard()
+    {
+        isHidden = false;
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 }
