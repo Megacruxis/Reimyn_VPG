@@ -16,6 +16,7 @@ public class CardDisplayManager : MonoBehaviour
     [SerializeField] private int x;
     [SerializeField] private int y;
 
+    private Card myCard;
     private bool coroutineAllowed, isFacedUp;
 
     private void Awake()
@@ -33,6 +34,7 @@ public class CardDisplayManager : MonoBehaviour
             Debug.LogError("Missing reference to Sprite backSprite in script CardDisplayManager");
         }
         mySpriteRenderer.sprite = backSprite;
+        myCard = null;
         coroutineAllowed = true;
         isFacedUp = false;
     }
@@ -47,9 +49,10 @@ public class CardDisplayManager : MonoBehaviour
         return y;
     }
 
-    public void SetCardInfo(Sprite frontSprite)
+    public void SetCardInfo(Card myCard)
     {
-        this.frontSprite = frontSprite;
+        this.frontSprite = myCard.GetCardFrontSprite();
+        this.myCard = myCard;
     }
 
     /*
