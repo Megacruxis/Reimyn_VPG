@@ -7,6 +7,7 @@ public class MemoryCombatManager : MonoBehaviour
 {
     [Header("Player info")]
     [SerializeField] private FriendlyBehaviour player;
+    [SerializeField] private Enemy01 oppo1;
     [SerializeField] private PlayerDeckSO playerDeckSO;
 
     [Header("Grid info")]
@@ -123,6 +124,7 @@ public class MemoryCombatManager : MonoBehaviour
                     if (selectedCardManager.GetMyCard().GetCardId() == cardSlots[faceUpCardIndex].GetMyCard().GetCardId())
                     {
                         selectedCardManager.FlipCard();
+                        selectedCardManager.GetMyCard().DoEffect(player,oppo1);
                         StartCoroutine(PairFound(selectedCardManager));
                     }
                     else

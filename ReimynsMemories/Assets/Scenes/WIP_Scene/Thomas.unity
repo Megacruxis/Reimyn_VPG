@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -898,7 +898,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c91741a77c3f28459cef7e158587f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 11400000, guid: 91fafc3f21a35c341af8fcfc33ddb810, type: 2}
+  oppo1: {fileID: 11400000, guid: fb3564c16fd923b4987feb10253e032e, type: 2}
   playerDeckSO: {fileID: 11400000, guid: 4f2073e1775c792498712e1961cfae47, type: 2}
   numberOfLine: 3
   numberOfColumn: 6
@@ -921,6 +922,9 @@ MonoBehaviour:
   - {fileID: 1901209407}
   - {fileID: 842343495}
   - {fileID: 2056201205}
+  cardIsClickedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1045065980
 Transform:
   m_ObjectHideFlags: 0
