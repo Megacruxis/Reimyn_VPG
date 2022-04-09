@@ -30,6 +30,14 @@ public abstract class Card
 
     public string GetCardStatus()
     {
-        return StrStatus(cardStatus);
+        switch (cardStatus)
+        {
+            case CardStatus.Clear:
+                return "Clear";
+            case CardStatus.Burn:
+                return "Burn";  
+            default:
+                return "Error Status undifined"; 
+        }
     }
 }
