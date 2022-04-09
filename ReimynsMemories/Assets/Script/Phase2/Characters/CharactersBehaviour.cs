@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class CharacterBehaviour : MonoBehaviour
 {
-    [SerializeField] protected int maxHealthPoints;
-    [SerializeField] protected int currenthealthPoints;
-    [SerializeField] protected int baseDamage;
-    [SerializeField] protected int shield;
+    [SerializeField] public int maxHealthPoints;
+    [SerializeField] public int currenthealthPoints;
+    [SerializeField] public int baseDamage;
+    [SerializeField] public int shield;
 
     private enum passiveCapacities
     {
@@ -24,7 +24,7 @@ public abstract class CharacterBehaviour : MonoBehaviour
         currenthealthPoints += amount;
     }
     
-    protected void TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
         if (shield>dmg) {shield -= dmg;}
         else
@@ -34,7 +34,7 @@ public abstract class CharacterBehaviour : MonoBehaviour
         }
     }
 
-    protected void HealCharacter(int heal)
+    public void HealCharacter(int heal)
     {
         if (heal+currenthealthPoints>maxHealthPoints) 
         {
@@ -44,7 +44,7 @@ public abstract class CharacterBehaviour : MonoBehaviour
             ChangeHP(heal);
     }
 
-    protected void AddShield(int bonusShield)
+    public void AddShield(int bonusShield)
     {
         shield += bonusShield;
     }
