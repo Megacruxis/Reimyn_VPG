@@ -6,9 +6,15 @@ using UnityEngine;
 public class PlayerDeckSO : ScriptableObject
 {
     [SerializeField] private List<Card> playerDecklist;
-    private List<Card> currentDeck;
-    private List<Card> discardPile;
-    private List<Card> exilePile;
+    private List<Card> currentDeck = new List<Card>();
+    private List<Card> discardPile = new List<Card>();
+    private List<Card> exilePile = new List<Card>();
+
+    public void InitDeckForCombat()
+    {
+        exilePile.Clear();
+        ResetDeck();
+    }
 
     public Card DrawNextCard()
     {
@@ -30,7 +36,8 @@ public class PlayerDeckSO : ScriptableObject
     public void ShuffleDeck()
     {
         List<Card> tmpDeck = new List<Card>();
-        for(int i = 0; i < currentDeck.Count; i++)
+        int max = currentDeck.Count;
+        for(int i = 0; i < max; i++)
         {
             Card selectedCard = currentDeck[Random.Range(0, currentDeck.Count)];
             currentDeck.Remove(selectedCard);

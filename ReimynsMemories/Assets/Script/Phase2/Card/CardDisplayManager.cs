@@ -49,6 +49,11 @@ public class CardDisplayManager : MonoBehaviour
         return y;
     }
 
+    public Card GetMyCard()
+    {
+        return myCard;
+    }
+
     public void SetCardInfo(Card myCard)
     {
         this.frontSprite = myCard.GetCardFrontSprite();

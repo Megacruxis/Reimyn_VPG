@@ -899,9 +899,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  playerDeckSO: {fileID: 0}
-  numberOfLine: 0
-  numberOfColumn: 0
+  playerDeckSO: {fileID: 11400000, guid: 4f2073e1775c792498712e1961cfae47, type: 2}
+  numberOfLine: 3
+  numberOfColumn: 6
   cardSlots:
   - {fileID: 393254145}
   - {fileID: 1008797126}

@@ -55,6 +55,7 @@ public class MemoryCombatManager : MonoBehaviour
     private void Start()
     {
         SetEmptyCardSlot();
+        playerDeckSO.InitDeckForCombat();
         FillGrid();
     }
 

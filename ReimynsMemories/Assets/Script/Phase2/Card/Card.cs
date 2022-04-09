@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Card
+public abstract class Card : ScriptableObject
 {
     [SerializeField] private string cardName;
     [SerializeField] private string effectText;
@@ -11,7 +11,7 @@ public abstract class Card
 
     public CardStatus cardStatus = CardStatus.Clear;
 
-    public abstract void DoEffect(); //take hostile behaviour + player as parameter
+    public abstract void DoEffect(FriendlyBehaviour player, EnemyBehaviour opponent);
 
     public string GetCardName()
     {
