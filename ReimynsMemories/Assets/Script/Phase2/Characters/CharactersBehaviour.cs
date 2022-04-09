@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CharacterBehaviour : MonoBehaviour
+public abstract class CharacterBehaviour : ScriptableObject
 {
     [SerializeField] public int maxHealthPoints;
     [SerializeField] public int currenthealthPoints;
@@ -51,17 +51,10 @@ public abstract class CharacterBehaviour : MonoBehaviour
 
 
     // Start is called before the first frame update
-    protected void Start()
+    public void Init()
     {
         InitialiseBaseDamage();
         InitialiseHP();
         InitialiseShield();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
+    }    
 }
