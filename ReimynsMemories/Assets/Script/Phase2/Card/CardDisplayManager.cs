@@ -64,6 +64,11 @@ public class CardDisplayManager : MonoBehaviour
         frontSprite = myCard.GetCardFrontSprite();
         this.myCard = myCard;
         this.myManager = myManager;
+        if (isFacedUp)
+        {
+            StartCoroutine(RotateCard());
+        }
+        DisplayCard();
     }
 
 

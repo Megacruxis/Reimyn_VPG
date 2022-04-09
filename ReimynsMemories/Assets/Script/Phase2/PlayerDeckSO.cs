@@ -16,16 +16,30 @@ public class PlayerDeckSO : ScriptableObject
         ResetDeck();
     }
 
+    public bool CanDraw()
+    {
+        return currentDeck.Count > 0;
+    }
+
     public Card DrawNextCard()
     {
         if(currentDeck.Count == 0)
         {
+            ShuffleDiscardPileIntoDeck();
             Debug.LogError("Cannot draw a card, deck is empty");
             return null;
         }
         Card card = currentDeck[Random.Range(0, currentDeck.Count)];
         currentDeck.Remove(card);
         return card;
+    }
+
+    public void AddToDiscardPile(Card cardToAdd)
+    {
+        if(playerDecklist.Contains(cardToAdd))
+        {
+            discardPile.Add(cardToAdd);
+        }
     }
 
     public void AddCardToDeck(Card cardToAdd)

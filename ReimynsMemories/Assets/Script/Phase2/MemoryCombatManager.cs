@@ -18,10 +18,11 @@ public class MemoryCombatManager : MonoBehaviour
 
     public UnityEvent<CardDisplayManager> cardIsClickedEvent;
 
-    private List<int> emptycardSlots;
+    private bool enoughtCardFaceUp;
     private int gridNumberOfSlots;
     private int faceUpCardIndex;
-    private bool enoughtCardFaceUp;
+    private List<int> emptycardSlots;
+
 
     private void Awake()
     {
@@ -43,7 +44,7 @@ public class MemoryCombatManager : MonoBehaviour
             Debug.LogError("Error in script MemoryCombatManager, numberOfLine = " + numberOfLine
                 + " but should be greater than 0");
         }
-        if(cardSlots.Length < numberOfLine * numberOfColumn)
+        if(cardSlots.Length != numberOfLine * numberOfColumn)
         {
             Debug.LogError("Error in script MemoryCombatManager, not enought card slot for the given number of line and column");
         }
@@ -55,9 +56,10 @@ public class MemoryCombatManager : MonoBehaviour
         }
         cardIsClickedEvent = new UnityEvent<CardDisplayManager>();
         cardIsClickedEvent.AddListener(CardIsClicked);
-        emptycardSlots = new List<int>();
-        faceUpCardIndex = -1;
+
         enoughtCardFaceUp = false;
+        faceUpCardIndex = -1;
+        emptycardSlots = new List<int>();
     }
 
     private void Start()
@@ -65,6 +67,11 @@ public class MemoryCombatManager : MonoBehaviour
         SetEmptyCardSlot();
         playerDeckSO.InitDeckForCombat();
         FillGrid();
+    }
+
+    private void Update()
+    {
+        
     }
 
     private void SetEmptyCardSlot()
@@ -83,11 +90,14 @@ public class MemoryCombatManager : MonoBehaviour
     {
         for (int i = 0; i < gridNumberOfSlots/2; i++)
         {
+            if(!playerDeckSO.CanDraw())
+            {
+                playerDeckSO.ShuffleDiscardPileIntoDeck();
+            }
             Card selectedCard = playerDeckSO.DrawNextCard();
             if(selectedCard == null)
             {
-                //maybe shuffle ?
-                Debug.LogError("Error in script MemoryCombatManager, could not fill the grid, deck is empty");
+                Debug.LogError("Error in script MemoryCombatManager, could not fill the grid, deck does not contain enought cards");
                 return;
             }
             for(int r = 0; r < 2; r++)
@@ -104,6 +114,9 @@ public class MemoryCombatManager : MonoBehaviour
         }
     }
 
+    /*
+     * Used when a card is clicked in order to check if a pair is reveald
+     */
     public void CardIsClicked(CardDisplayManager selectedCardManager)
     {
         int selectedCardIndex = numberOfColumn * selectedCardManager.GetSlotY() + selectedCardManager.GetSlotX();
@@ -111,7 +124,7 @@ public class MemoryCombatManager : MonoBehaviour
         {
             selectedCardManager.FlipCard();
             faceUpCardIndex = selectedCardIndex;
-            //apply the effect of the card when she is face up
+            //apply the effect of the card when she is face up/clicked
         }
         else
         {
@@ -148,13 +161,33 @@ public class MemoryCombatManager : MonoBehaviour
     private IEnumerator PairFound(CardDisplayManager selectedCardManager)
     {
         yield return new WaitForSeconds(1f);
+
+        HideDiscoveredCard(selectedCardManager);
+
+        playerDeckSO.AddToDiscardPile(selectedCardManager.GetMyCard());
+        emptycardSlots.Add(numberOfColumn * cardSlots[faceUpCardIndex].GetSlotY() + cardSlots[faceUpCardIndex].GetSlotX());
+        emptycardSlots.Add(numberOfColumn * selectedCardManager.GetSlotY() + selectedCardManager.GetSlotX());
+
+        //cool animation
+        //pair effect
+
+
+        if (emptycardSlots.Count == gridNumberOfSlots)
+        {
+            yield return new WaitForSeconds(1f);
+            FillGrid();
+        }    
+
+        faceUpCardIndex = -1;
+        enoughtCardFaceUp = false;
+        
+    }
+
+    private void HideDiscoveredCard(CardDisplayManager selectedCardManager)
+    {
         selectedCardManager.FlipCard();
         cardSlots[faceUpCardIndex].FlipCard();
         selectedCardManager.HideCard();
         cardSlots[faceUpCardIndex].HideCard();
-        faceUpCardIndex = -1;
-        enoughtCardFaceUp = false;
-        //cool animation
-        //pair effect
     }
 }
