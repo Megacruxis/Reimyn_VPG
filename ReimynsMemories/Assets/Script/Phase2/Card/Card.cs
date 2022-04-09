@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Card : MonoBehaviour
+public abstract class Card
 {
     [SerializeField] private string cardName;
     [SerializeField] private string effectText;
 
     [SerializeField] private Sprite cardFrontSprite;
+
+    public CardStatus cardStatus = CardStatus.Clear;
 
     public abstract void DoEffect(); //take hostile behaviour + player as parameter
 
@@ -24,5 +26,10 @@ public abstract class Card : MonoBehaviour
     public Sprite GetCardFrontSprite()
     {
         return cardFrontSprite;
+    }
+
+    public string GetCardStatus()
+    {
+        return StrStatus(cardStatus);
     }
 }
