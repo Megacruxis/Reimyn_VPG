@@ -21,15 +21,26 @@ public class EnemyBehaviour : CharacterBehaviour
         shield = 0;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public EnemyMovePool interPool;
+
+    public void SetBaseBurnDamage(int dmg)
     {
-        
+        interPool.SetBurnDamage(dmg);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void EnemyNextMove()
     {
-        
+        interPool.SetNextMove(baseDamage);
     }
+
+    public void EnemyApplyMove(FriendlyBehaviour player, Card card)
+    {
+        interPool.ApplyMove(player, card);
+    }
+
+    public void EnemyApplyBurn(FriendlyBehaviour player)
+    {
+        player.TakeDamage(interPool.GetBurnDamage());
+    }
+
 }
