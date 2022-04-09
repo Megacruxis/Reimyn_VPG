@@ -9,6 +9,8 @@ public abstract class Card
 
     [SerializeField] private Sprite cardFrontSprite;
 
+    public CardStatus cardStatus = CardStatus.Clear;
+
     public abstract void DoEffect(); //take hostile behaviour + player as parameter
 
     public string GetCardName()
@@ -24,5 +26,10 @@ public abstract class Card
     public Sprite GetCardFrontSprite()
     {
         return cardFrontSprite;
+    }
+
+    public string GetCardStatus()
+    {
+        return StrStatus(cardStatus);
     }
 }
