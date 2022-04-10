@@ -16,6 +16,11 @@ public class PlayerDeckSO : ScriptableObject
         ResetDeck();
     }
 
+    public int GetCurrentDeckSize()
+    {
+        return currentDeck.Count;
+    }
+
     public bool CanDraw()
     {
         return currentDeck.Count > 0;

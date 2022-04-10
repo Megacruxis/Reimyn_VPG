@@ -106,6 +106,7 @@ public class MemoryCombatManager : MonoBehaviour
      */
     private IEnumerator FillGrid(float delay) 
     {
+        Debug.Log(emptycardSlots.Count);
         cardIsClickedEvent.RemoveListener(CardIsClicked);
         yield return new WaitForSeconds(delay);
         List<int> filledSlots = new List<int>();
@@ -114,6 +115,7 @@ public class MemoryCombatManager : MonoBehaviour
             if(!playerDeckSO.CanDraw())
             {
                 playerDeckSO.ShuffleDiscardPileIntoDeck();
+                Debug.Log(playerDeckSO.GetCurrentDeckSize());
             }
             Card selectedCard = playerDeckSO.DrawNextCard();
             if(selectedCard == null)
@@ -261,11 +263,17 @@ public class MemoryCombatManager : MonoBehaviour
 
     public void DiscardAllCard()
     {
+        List<int> discardedId = new List<int>();
         foreach (CardDisplayManager card in cardSlots)
         {
             if(!card.GetIsHidden())
             {
-                playerDeckSO.AddToDiscardPile(card.GetMyCard());
+                int cardId = card.GetMyCard().GetCardId();
+                if (!discardedId.Contains(cardId))
+                {
+                    playerDeckSO.AddToDiscardPile(card.GetMyCard());
+                    discardedId.Add(cardId);
+                }
                 emptycardSlots.Add(CalculateCardIndex(card));
             }
         }
