@@ -141,6 +141,13 @@ public abstract class CharacterBehaviour : ScriptableObject
         ResetAttackMultiplier();
     }
 
+    public void SetCharaForNewCombat()
+    {
+        currentStrenght = 0;
+        InitialiseShield();
+        ResetAttackMultiplier();
+    }
+
     public void OnEnable()
     {
         changeHealth = new UnityEvent<int>();
