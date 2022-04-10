@@ -10,6 +10,6 @@ public class Strike : Card
     public override void DoEffect(FriendlyBehaviour player, EnemyBehaviour opponent)
     {
         opponent.TakeDamage(damages);
-        Debug.Log("Strike, HP: " + opponent.GetCurrentHealthPoint());
+        Debug.Log("Strike  " + opponent.GetCurrentHealthPoint());
     }
 }

@@ -13,8 +13,11 @@ public abstract class CharacterBehaviour : ScriptableObject
 
     public UnityEvent<int> changeHealth;
     public UnityEvent<int> setHealth;
+    public UnityEvent<int> changeShield;
+    public UnityEvent<int> setShield;
 
     protected int currenthealthPoints;
+    protected int attackMultiplier;
     protected MemoryCombatManager myManager;
 
     private enum passiveCapacities
@@ -44,7 +47,11 @@ public abstract class CharacterBehaviour : ScriptableObject
     
     public void TakeDamage(int dmg)
     {
-        if (shield>dmg) {shield -= dmg;}
+        if (shield>dmg) 
+        {
+            shield -= dmg;
+            changeShield.Invoke(shield);    
+        }
         else
         {
             int realDmg = shield-dmg;
@@ -67,6 +74,35 @@ public abstract class CharacterBehaviour : ScriptableObject
     public void AddShield(int bonusShield)
     {
         shield += bonusShield;
+        changeShield.Invoke(shield);
+    }
+
+    public int GetAttackMultiplier()
+    {
+        return attackMultiplier;
+    }
+
+    public void ResetAttackMultiplier()
+    {
+        attackMultiplier = 1;
+    }
+
+    public void UpdateAttackMultiplier(int multiply)
+    {
+        attackMultiplier *= multiply;
+    }
+
+    public void NewTurn()
+    {
+        shield /= 2;
+        ResetAttackMultiplier();
+    }
+
+    public int GetAttackDamage(int originalValue)
+    {
+        int val = originalValue * attackMultiplier;
+        ResetAttackMultiplier();
+        return val;
     }
 
     // Used to set the stat of the player at their default value 
@@ -76,11 +112,14 @@ public abstract class CharacterBehaviour : ScriptableObject
         InitialiseBaseDamage();
         InitialiseHP();
         InitialiseShield();
+        ResetAttackMultiplier();
     }
 
     public void OnEnable()
     {
         changeHealth = new UnityEvent<int>();
         setHealth = new UnityEvent<int>();
+        changeShield = new UnityEvent<int>();
+        setShield = new UnityEvent<int>();
     }
 }

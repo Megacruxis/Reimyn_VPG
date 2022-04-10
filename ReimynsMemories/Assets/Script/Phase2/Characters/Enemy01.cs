@@ -20,5 +20,6 @@ public class Enemy01 : EnemyBehaviour
     protected override void InitialiseShield()
     {
         shield = 0;
+        setShield.Invoke(maxHealthPoints);
     }
 }

@@ -86,6 +86,7 @@ public class MemoryCombatManager : MonoBehaviour
     {
         if(!isPlayerTurn && enemyCanAttack)
         {
+            opponent.NewTurn();
             enemyCanAttack = false;
             cardIsClickedEvent.RemoveListener(CardIsClicked);
             StartCoroutine(ExectuteEnemyMove());
@@ -106,7 +107,6 @@ public class MemoryCombatManager : MonoBehaviour
      */
     private IEnumerator FillGrid(float delay) 
     {
-        Debug.Log(emptycardSlots.Count);
         cardIsClickedEvent.RemoveListener(CardIsClicked);
         yield return new WaitForSeconds(delay);
         List<int> filledSlots = new List<int>();
@@ -115,7 +115,6 @@ public class MemoryCombatManager : MonoBehaviour
             if(!playerDeckSO.CanDraw())
             {
                 playerDeckSO.ShuffleDiscardPileIntoDeck();
-                Debug.Log(playerDeckSO.GetCurrentDeckSize());
             }
             Card selectedCard = playerDeckSO.DrawNextCard();
             if(selectedCard == null)
@@ -157,7 +156,7 @@ public class MemoryCombatManager : MonoBehaviour
         cardIsClickedEvent.RemoveListener(CardIsClicked);
         DiscardAllCard();
         HideAllCard();
-        StartCoroutine(FillGrid(0.8f));
+        StartCoroutine(FillGrid(1.4f));
     }
 
     /*
@@ -213,7 +212,14 @@ public class MemoryCombatManager : MonoBehaviour
     {
         HideDiscoveredCard(selectedCardManager);
 
-        playerDeckSO.AddToDiscardPile(selectedCardManager.GetMyCard());
+        if(selectedCardManager.GetMyCard().GetExile())
+        {
+            playerDeckSO.ExileCard(selectedCardManager.GetMyCard());
+        } 
+        else
+        {
+            playerDeckSO.AddToDiscardPile(selectedCardManager.GetMyCard());
+        }
         emptycardSlots.Add(faceUpCardIndex);
         emptycardSlots.Add(CalculateCardIndex(selectedCardManager));
 
@@ -235,7 +241,6 @@ public class MemoryCombatManager : MonoBehaviour
     {
         cardIsClickedEvent.AddListener(CardIsClicked);
         ResetSelectedCard();
-        gridIsFilledEvent.RemoveListener(GridIsFilled);
     }
 
     /*
@@ -273,6 +278,9 @@ public class MemoryCombatManager : MonoBehaviour
                 {
                     playerDeckSO.AddToDiscardPile(card.GetMyCard());
                     discardedId.Add(cardId);
+                } else
+                {
+                    discardedId.Remove(cardId);
                 }
                 emptycardSlots.Add(CalculateCardIndex(card));
             }
@@ -291,6 +299,7 @@ public class MemoryCombatManager : MonoBehaviour
         // ennemy attack
 
         isPlayerTurn = true;
+        player.NewTurn();
         cardIsClickedEvent.AddListener(CardIsClicked);
     }
 
