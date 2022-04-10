@@ -1,0 +1,14 @@
+setBackground(1)
+
+Benjamin "I...{c}love{a} kiwi{wa 0,5} LOL {c} I"
+
+displaySprite(1)
+
+displaySprite(10)
+
+hideSprite(1)
+
+Thomas "CHOCO BN"
+
+load(chapter0_a.txt)
+
