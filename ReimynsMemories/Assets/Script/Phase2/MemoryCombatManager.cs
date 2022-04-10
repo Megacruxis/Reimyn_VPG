@@ -375,11 +375,11 @@ public class MemoryCombatManager : MonoBehaviour
 
     private IEnumerator StartNextFight()
     {
+        DiscardAllCard();
         HideAllCard();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         InitCurrentOpponent();
         yield return new WaitForSeconds(1f);
-        DiscardAllCard();
         playerDeckSO.RestoreDeck();
         StartCoroutine(FillGrid(0.5f));
     }
