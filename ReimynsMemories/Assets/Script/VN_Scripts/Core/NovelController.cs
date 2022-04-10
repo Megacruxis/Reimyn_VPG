@@ -445,6 +445,10 @@ public class NovelController : MonoBehaviour
 
     void HandleHideSprite(string infos)
     {
+        if (infos.ToLower() == "reymin")
+            SpriteManager.instance.HideReyminSprite();
+        if (infos.ToLower() == "aleebu")
+            SpriteManager.instance.HideAleebuSprite();
         SpriteManager.instance.HideSprite(int.Parse(infos));
     }
 
