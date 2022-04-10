@@ -18,6 +18,6 @@ public class MenuButton : MonoBehaviour
 
     public void ButtonClicked()
     {
-        SceneManager.LoadScene("Scenes/MainMenu");
+        SceneManager.LoadScene("Scenes/WIP_Scene/MainMenu");
     }
 }

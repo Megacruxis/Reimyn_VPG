@@ -419,13 +419,13 @@ public class MemoryCombatManager : MonoBehaviour
     private void KillCurrentOpponent()
     {
         opponentsSprite[currentOpponentIndex].enabled = false;
-        if(currentOpponentIndex < opponents.Count)
+        if(currentOpponentIndex < opponents.Count-1)
         {
             currentOpponentIndex++;
         }
         else
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene("Scenes/WIP_Scene/End");
         }
     }
 
