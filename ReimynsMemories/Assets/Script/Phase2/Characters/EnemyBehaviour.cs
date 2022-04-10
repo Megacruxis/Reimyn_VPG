@@ -16,10 +16,10 @@ public class EnemyBehaviour : CharacterBehaviour
 
     public string ExectuteNextMove(FriendlyBehaviour player)
     {
-        float rollFail = ((float)Random.Range(0, 100))/100f;
+        float rollFail = Random.Range(0f, 1f);
         if (rollFail>failRate)
         {
-            float rollATK = ((float)Random.Range(0, 100))/100f;
+            float rollATK = Random.Range(0f, 1f);
             if (rollATK<atkBlockRatio)
             {
                 player.TakeDamage(baseDamage);
@@ -27,7 +27,7 @@ public class EnemyBehaviour : CharacterBehaviour
             }
             else
             {
-                float rollHP = ((float)Random.Range(0, 100))/100f;
+                float rollHP = Random.Range(0f, 1f);
                 if (rollHP<healShieldRatio)
                 {
                     HealCharacter(healValue);

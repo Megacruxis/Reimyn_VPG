@@ -1,0 +1,143 @@
+"..."
+setBackground(2)
+
+narrator "* Nos deux héros sont en chemin. *"
+
+hideSprite(reimyn) hideSprite(aleebu) displaySprite(2) displaySprite(10)
+
+Aleebu "J'en peux plus.....{c}Quand est-ce qu'on arriiiiive...?"
+
+choice
+{
+
+	"Économises ta salive."2
+		hideSprite(reimyn) displaySprite(12)
+		Reimyn "Ça ne te fatigue pas de te plaindre sans arrêt ?{c}Tu devrais économiser ta salive pour dire des choses plus pertinentes."
+
+
+
+	"Bientôt."2
+		hideSprite(reimyn) displaySprite(13)
+		Reimyn "On arrive bientôt ne t'en fais pas."
+
+
+	"* Ne rien répondre *"2
+		hideSprite(reimyn) displaySprite(10)
+		Reimyn "..."
+}
+
+Aleebu "Et puis on va où d'abord ?!"
+
+Reimyn "Je te l'ai déjà dit...{c}On se rend à la Citadelle d'Alzilal."
+
+Aleebu "Et c'est quoi déjà cette Citadelle...?"
+
+choice
+{
+
+
+	"* Expliquer très rapidement *"2
+		hideSprite(reimyn) displaySprite(10)
+		Reimyn "Un grand château.{wa 0,5} Avec une grande tour.{wa 0,5} Et des créatures des ombres accessoirement."
+
+
+
+	"* Expliquer avec précision *"2
+		hideSprite(reimyn) displaySprite(11)
+		Reimyn "La Citadelle d'Alzilal est une ancienne forteresse ayant servie durant la Guerre Rouge.{c}Il s'agit d'un fort avec une très grande tour en son centre{wa 0,5}, mais également des souterrains immenses.{c}À l'heure actuelle elle est totalement désertée.{c}En effet,{a} c'est un véritable repère pour les créatures des ombres.{c}L'endroit étant tant impregné de mauvais souvenirs et de traumatismes de guerre,{a} il en apparaît tous les jours.{c}En général on y envoie pas les Purificateurs car la Citadelle est loin de tout,{a} donc sans véritable danger.{c}Cependant d'après le message que j'ai reçu,{a} une très grande concentration maléfique émane de l'endroit.{c}Je dois donc aller purifier tout ça histoire qu'il n'y est aucun soucis à l'avenir..."
+
+
+
+	"* Expliquer de manière effrayante *"2
+		hideSprite(reimyn) displaySprite(6)
+		Reimyn "La Citadelle d'Alzilal...{a} Que dis-je...?{c}LA CITADELLE DE L'ENFER MOUAHAHA !{c}On y raconte que c'est le repère par excellence des créatures de l'ombre les plus démoniaques !{c}D'autres disent que le bruit du vent serait en réalité les échos des malheurs dont ce lieu est impregné...{c}Mais bon ne prends pas peur{a}, je vais purifier tout ça sans trop de soucis."
+}
+
+Aleebu "Aaah...{a}O...{a}O...{a}Ok..."
+
+choice
+{
+
+	"Tu as peur ?"2
+		hideSprite(reimyn) displaySprite(13)
+		Reimyn "Qu'y-a-t'il ?{wa 0,5} Tu es effrayé ?{c}Ne t'en fais pas un sang d'encre,{a} je suis là pour te protéger.{c}Je te demanderais juste de pas trop me coller.{c}Ni de trop t'éloigner à vrai dire...{c}Enfin bref ! Trouves le juste milieu !"
+
+
+
+	"Tu peux toujours repartir hein."2
+		hideSprite(reimyn) displaySprite(11)
+		Reimyn "Tu sais,{a} si tu veux changer d'avis tu as encore le temps.{c}Tu connais le chemin.{c}Mais bon,{a} après tout ton cirque ce serait dommage que tu prennes tes jambes à ton cou."
+
+
+
+	" *Ne rien répondre *"2
+		hideSprite(reimyn) displaySprite(10)
+		Reimyn "..."
+}
+
+Aleebu "B...{a}Bon et bien...{a} Je vais te faire confiance..."
+
+Reimyn "C'est en effet une sage décision ahah !"
+
+Aleebu "Rei',{a} j'avais une question particulière à te poser..."
+
+Reimyn "Je t'écoute."
+
+Aleebu "Est-ce que euh...{c} Est-ce que les humains peuvent devenir des créatures des ombres...?"
+
+Reimyn "Hmmm...{c}C'est en effet une très bonne question..."
+
+choice
+{
+
+
+	"* Répondre honnêtement *"2
+		hideSprite(reimyn) displaySprite(11)
+		Reimyn "Pour tout te dire je n'en sais rien.{c}Mais je ne sais pas, c'est jamais arrivé.{c}Les créatures des ombres sont vraiments des êtres à part."
+
+
+
+	"* Émettre une hypothèse *"2
+		hideSprite(reimyn) displaySprite(10)
+		Reimyn "Ce n'est jamais arrivé.{c}Et je doute que cela arrive un jour.{c}Les créatures des ombres sont vraiment des êtres à part."
+
+
+
+	"* Réfuter l'idée *"2
+		hideSprite(reimyn) displaySprite(12)
+		Reimyn "Non.{c}C'est impossible."
+}
+
+Aleebu "Oh d'accord."
+
+hideSprite(Reimyn)
+hideSprite(Aleebu)
+
+narrator "Nos deux protagonistes arrivent au pied de la Citadelle."
+
+displaySprite(10) displaySprite(2)
+
+choice
+{
+
+	"Rentrons."2
+		hideSprite(reimyn) displaySprite(13)
+		Reimyn "Allez,{a} allons-y."
+
+	"Prêt ?"4
+		hideSprite(reimyn) displaySprite(10)
+		Reimyn "Tu es prêt Aleebu ?"
+		Aleebu "Je...{a}Je suppose..."
+		Reimyn "Alors ne perdons pas plus de temps dans ce cas."
+
+	"* Rentrer sans plus un mot *"2
+		hideSprite(reimyn) displaySprite(10)
+		hideSprite(Reimyn)
+}
+
+Aleebu "Oh. Oui, oui, allons-y..."
+
+hideSprite(Reimyn)
+hideSprite(Aleebu)
+
+load(stry_chap3.txt)

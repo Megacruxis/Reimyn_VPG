@@ -109,7 +109,6 @@ public class NovelController : MonoBehaviour
                     revertSprite(data[progress - 2]);
                     progress--;
                     progress--;
-                    Next();
                     handlingChapterFile = StartCoroutine(HandleChapterFile());
                 }
             }
@@ -129,7 +128,7 @@ public class NovelController : MonoBehaviour
     Coroutine handlingChapterFile = null;
     IEnumerator HandleChapterFile()
     {
-
+        next = false;
         while (progress < data.Count)
         {
             //Next trigger
@@ -266,6 +265,7 @@ public class NovelController : MonoBehaviour
             StopCoroutine(handlingLine);
 
         progress = 0;
+        Next();
         handlingChapterFile = StartCoroutine(HandleChapterFile());
     }
 
@@ -294,7 +294,6 @@ public class NovelController : MonoBehaviour
     Coroutine handlingLine = null; 
     IEnumerator HandleLineC(CLM.Line line)
     {
-        next = false;
 
         int lineProgress = 0;
         inSegment = true;
@@ -445,11 +444,12 @@ public class NovelController : MonoBehaviour
 
     void HandleHideSprite(string infos)
     {
-        if (infos.ToLower() == "reymin")
+        if (infos.ToLower() == "reimyn")
             SpriteManager.instance.HideReyminSprite();
-        if (infos.ToLower() == "aleebu")
+        else if (infos.ToLower() == "aleebu")
             SpriteManager.instance.HideAleebuSprite();
-        SpriteManager.instance.HideSprite(int.Parse(infos));
+        else
+            SpriteManager.instance.HideSprite(int.Parse(infos));
     }
 
     void HandleLoad(string infos)
