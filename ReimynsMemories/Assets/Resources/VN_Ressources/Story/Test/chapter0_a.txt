@@ -14,9 +14,8 @@ choice
 		Benj "a"
 		"b"
 		"c"
-	"CHOIX2"2
-		"e"
-		"f"
+	"CHOIX2"1
+		startMemory(WIP_Scene/Thomas)
 	"CHOIX3"1
 		load(chapter0_a)
 }

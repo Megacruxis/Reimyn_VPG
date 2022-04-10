@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class NovelController : MonoBehaviour
 {
@@ -365,6 +366,8 @@ public class NovelController : MonoBehaviour
             case "setBackground":
             case "playSong":
             case "stopSong":
+            case "startMemory":
+            case "setInfos":
                 //Nothing no reveartable
                 break;
             default:
@@ -398,10 +401,26 @@ public class NovelController : MonoBehaviour
             case "stopSong":
                 HandleStopSong(data[1]);
                 break;
+            case "startMemory":
+                HandleStartMemory(data[1]);
+                break;
+            case "setInfos":
+                HandleSetInfos(data[1]);
+                break;
             default:
                 Debug.Log("Unknow command " + data[0]);
                 break;
         }
+    }
+
+    void HandleSetInfos(string infos)
+    {
+        Infos.starterDeck = infos;
+    }
+
+    void HandleStartMemory(string infos)
+    {
+        SceneManager.LoadScene("Scenes/" + infos);
     }
 
     void HandlePlaySong(string infos)
@@ -426,6 +445,10 @@ public class NovelController : MonoBehaviour
 
     void HandleHideSprite(string infos)
     {
+        if (infos.ToLower() == "reymin")
+            SpriteManager.instance.HideReyminSprite();
+        if (infos.ToLower() == "aleebu")
+            SpriteManager.instance.HideAleebuSprite();
         SpriteManager.instance.HideSprite(int.Parse(infos));
     }
 
