@@ -76,8 +76,7 @@ public class MemoryCombatManager : MonoBehaviour
 
     private void Start()
     {
-        player.Init(this);
-        opponent.Init(this);
+        StartCoroutine(InitPlayerAndOpponent());
         SetEmptyCardSlot();
         playerDeckSO.InitDeckForCombat();
         StartCoroutine(FillGrid(0));
@@ -286,4 +285,12 @@ public class MemoryCombatManager : MonoBehaviour
         isPlayerTurn = true;
         cardIsClickedEvent.AddListener(CardIsClicked);
     }
+
+    public IEnumerator InitPlayerAndOpponent() 
+    {
+        yield return new WaitForSeconds(0.1f);
+        player.Init(this);
+        opponent.Init(this);
+    }
+    
 }

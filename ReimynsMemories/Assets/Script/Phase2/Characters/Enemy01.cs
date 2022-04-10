@@ -9,6 +9,7 @@ public class Enemy01 : EnemyBehaviour
     protected override void InitialiseHP()
     {
         currenthealthPoints = maxHealthPoints;
+        setHealth.Invoke(maxHealthPoints);
     }
 
     protected override void InitialiseBaseDamage()

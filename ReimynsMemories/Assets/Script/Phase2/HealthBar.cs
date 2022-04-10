@@ -8,19 +8,18 @@ public class HealthBar : MonoBehaviour
 {
     public Slider slider;
 
-    public CharacterBehaviour linkedHealthStart;
-    public CharacterBehaviour linkedHealthChange;
+    public CharacterBehaviour linkedCharacter;
 
     private void Start()
     {
-        linkedHealthStart.setHealth.AddListener(SetMaxHealth);
-        linkedHealthChange.changeHealth.AddListener(SetHealth);
+        linkedCharacter.setHealth.AddListener(SetMaxHealth);
+        linkedCharacter.changeHealth.AddListener(SetHealth);
     }
 
     public void SetMaxHealth(int health)
     {
-        slider.value = health;
         slider.maxValue = health;
+        slider.value = health;
     }
 
     public void SetHealth(int health)
