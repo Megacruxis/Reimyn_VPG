@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1369a8343e5db6049a092008d44e429c, type: 3}
-  m_Name: LightShield
+  m_Script: {fileID: 11500000, guid: 4e0c76eeb2bdae24789dab3d898fdd4f, type: 3}
+  m_Name: LightBall
   m_EditorClassIdentifier: 
-  cardId: 12
+  cardId: 11
   exile: 0
-  cardFrontSprite: {fileID: 21300000, guid: 8f6bb56933b02e746b78c3d97c2149fc, type: 3}
+  cardFrontSprite: {fileID: 21300000, guid: 75f50a64a4bdaef4dae6db0085063979, type: 3}
   cardStatus: 0
-  shieldValue: 8
+  damages: 5

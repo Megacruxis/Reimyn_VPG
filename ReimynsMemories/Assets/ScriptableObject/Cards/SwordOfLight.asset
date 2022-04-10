@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: SwordOfLight
   m_EditorClassIdentifier: 
   cardId: 9
-  cardName: "\xE9p\xE9e de lumi\xE8re"
-  effectText: deal 15 damages
-  exile: 1
-  cardFrontSprite: {fileID: 21300000, guid: 4c0ebcda8b7146442950806bcbf27a1d, type: 3}
+  exile: 0
+  cardFrontSprite: {fileID: 21300000, guid: 186ad18918601f940b712234dd9067e5, type: 3}
   cardStatus: 0
-  damages: 15
+  damages: 12

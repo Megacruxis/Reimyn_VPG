@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1369a8343e5db6049a092008d44e429c, type: 3}
-  m_Name: LightShield
+  m_Script: {fileID: 11500000, guid: c359b69f427918c4881146282eef8769, type: 3}
+  m_Name: Focus
   m_EditorClassIdentifier: 
-  cardId: 12
+  cardId: 13
   exile: 0
-  cardFrontSprite: {fileID: 21300000, guid: 8f6bb56933b02e746b78c3d97c2149fc, type: 3}
+  cardFrontSprite: {fileID: 21300000, guid: 1ece13c1853463044ac82e93146efd74, type: 3}
   cardStatus: 0
-  shieldValue: 8
