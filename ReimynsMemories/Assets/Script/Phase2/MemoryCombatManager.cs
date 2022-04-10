@@ -7,7 +7,7 @@ public class MemoryCombatManager : MonoBehaviour
 {
     [Header("Player info")]
     [SerializeField] private FriendlyBehaviour player;
-    [SerializeField] private Enemy01 oppo1;
+    [SerializeField] private EnemyBehaviour opponent;
     [SerializeField] private PlayerDeckSO playerDeckSO;
 
     [Header("Grid info")]
@@ -33,6 +33,10 @@ public class MemoryCombatManager : MonoBehaviour
         if(player == null)
         {
             Debug.LogError("Missing reference to FriendlyBehaviour player in script MemoryCombatManager");
+        }
+        if(opponent == null)
+        {
+            Debug.LogError("Missing reference to EnemyBehaviour opponent in script MemoryCombatManager");
         }
         if(playerDeckSO == null)
         {
@@ -67,13 +71,16 @@ public class MemoryCombatManager : MonoBehaviour
         emptycardSlots = new List<int>();
         gridIsFilledEvent = new UnityEvent();
         gridIsFilledEvent.AddListener(GridIsFilled);
+
+        player.Init(this);
+        opponent.Init(this);
     }
 
     private void Start()
     {
         SetEmptyCardSlot();
         playerDeckSO.InitDeckForCombat();
-        StartCoroutine(FillGrid());
+        StartCoroutine(FillGrid(0));
     }
 
     private void Update()
@@ -98,9 +105,11 @@ public class MemoryCombatManager : MonoBehaviour
     /*
      * Fill the grids with card from the player deck
      */
-    private IEnumerator FillGrid() 
+    private IEnumerator FillGrid(float delay) 
     {
         cardIsClickedEvent.RemoveListener(CardIsClicked);
+        yield return new WaitForSeconds(delay);
+        List<int> filledSlots = new List<int>();
         for (int i = 0; i < gridNumberOfSlots/2; i++)
         {
             if(!playerDeckSO.CanDraw())
@@ -123,8 +132,18 @@ public class MemoryCombatManager : MonoBehaviour
                 int selectedSlot = emptycardSlots[Random.Range(0, emptycardSlots.Count)];
                 emptycardSlots.Remove(selectedSlot);
                 cardSlots[selectedSlot].SetCardInfo(selectedCard, this);
-                yield return new WaitForSeconds(0.5f);
+                filledSlots.Add(selectedSlot);
             }
+        }
+
+        // make the card appear one by one
+        int max = filledSlots.Count;
+        for (int i = 0; i < max; i++)
+        {
+            int selected = filledSlots[Random.Range(0, filledSlots.Count)];
+            filledSlots.Remove(selected);
+            cardSlots[selected].DisplayCard(0);
+            yield return new WaitForSeconds(0.05f);
         }
         gridIsFilledEvent.Invoke();
     }
@@ -134,7 +153,11 @@ public class MemoryCombatManager : MonoBehaviour
      */
     public void ResetGrid()
     {
-        StartCoroutine(FillGrid());
+        cardIsClickedEvent.RemoveListener(CardIsClicked);
+        DiscardAllCard();
+        HideAllCard();
+        DiscardAllCard();
+        StartCoroutine(FillGrid(0.8f));
     }
 
     /*
@@ -159,8 +182,8 @@ public class MemoryCombatManager : MonoBehaviour
                     if (selectedCardManager.GetMyCard().GetCardId() == cardSlots[faceUpCardIndex].GetMyCard().GetCardId())
                     {
                         selectedCardManager.FlipCard();
-                        selectedCardManager.GetMyCard().DoEffect(player,oppo1);
-                        StartCoroutine(PairFound(selectedCardManager));
+                        selectedCardManager.GetMyCard().DoEffect(player,opponent);
+                        PairFound(selectedCardManager);
                     }
                     else
                     {
@@ -182,10 +205,8 @@ public class MemoryCombatManager : MonoBehaviour
         isPlayerTurn = false;
     }
 
-    private IEnumerator PairFound(CardDisplayManager selectedCardManager)
+    private void PairFound(CardDisplayManager selectedCardManager)
     {
-        yield return new WaitForSeconds(1f);
-
         HideDiscoveredCard(selectedCardManager);
 
         playerDeckSO.AddToDiscardPile(selectedCardManager.GetMyCard());
@@ -197,8 +218,7 @@ public class MemoryCombatManager : MonoBehaviour
 
         if (emptycardSlots.Count == gridNumberOfSlots)
         {
-            yield return new WaitForSeconds(1f);
-            StartCoroutine(FillGrid());
+            StartCoroutine(FillGrid(1f));
         } 
         else
         {
@@ -224,10 +244,27 @@ public class MemoryCombatManager : MonoBehaviour
 
     private void HideDiscoveredCard(CardDisplayManager selectedCardManager)
     {
-        selectedCardManager.FlipCard();
-        cardSlots[faceUpCardIndex].FlipCard();
-        selectedCardManager.HideCard();
-        cardSlots[faceUpCardIndex].HideCard();
+        selectedCardManager.HideCard(1f);
+        cardSlots[faceUpCardIndex].HideCard(1f);
+    }
+
+    public void HideAllCard()
+    {
+        foreach(CardDisplayManager card in cardSlots)
+        {
+            card.HideCard(0.2f);
+        }
+    }
+
+    public void DiscardAllCard()
+    {
+        foreach (CardDisplayManager card in cardSlots)
+        {
+            if(!card.GetIsHidden())
+            {
+                playerDeckSO.AddToDiscardPile(card.GetMyCard());
+            }
+        }
     }
 
     private IEnumerator ExectuteEnemyMove()
