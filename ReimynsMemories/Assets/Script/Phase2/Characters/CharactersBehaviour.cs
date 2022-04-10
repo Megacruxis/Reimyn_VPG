@@ -134,7 +134,7 @@ public abstract class CharacterBehaviour : ScriptableObject
     public void Init(MemoryCombatManager myManager)
     {
         this.myManager = myManager;
-        currentStrenght = 0,
+        currentStrenght = 0;
         InitialiseBaseDamage();
         InitialiseHP();
         InitialiseShield();
