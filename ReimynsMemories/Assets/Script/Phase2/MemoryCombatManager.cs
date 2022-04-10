@@ -237,6 +237,7 @@ public class MemoryCombatManager : MonoBehaviour
         {
             // cool end of turn annimation ?
             isPlayerTurn = false;
+            enemyCanAttack = true;
         } else
         {
             numberOfMoveLeft -= 1;
@@ -348,9 +349,9 @@ public class MemoryCombatManager : MonoBehaviour
     private IEnumerator ExectuteEnemyMove()
     {
         //ennemy annimation start
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         Debug.Log(opponents[currentOpponentIndex].ExectuteNextMove(player));
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
         // ennemy attack
 
         isPlayerTurn = true;
