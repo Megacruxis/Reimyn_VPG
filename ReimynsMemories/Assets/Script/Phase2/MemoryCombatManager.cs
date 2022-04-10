@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MemoryCombatManager : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class MemoryCombatManager : MonoBehaviour
     [Header("Grid info")]
     [SerializeField] private int numberOfLine;
     [SerializeField] private int numberOfColumn;
+
+    [Header("Ui element")]
+    [SerializeField] private TMP_Text moveLeftText;
 
     [Header("Emplacement where card can be positioned")]
     [SerializeField] private CardDisplayManager[] cardSlots;
@@ -109,6 +113,7 @@ public class MemoryCombatManager : MonoBehaviour
         SetEmptyCardSlot();
         playerDeckSO.InitDeckForCombat();
         StartCoroutine(FillGrid(0));
+        SetMoveLeftText();
     }
 
     private void Update()
@@ -125,6 +130,12 @@ public class MemoryCombatManager : MonoBehaviour
             NewOpponent = false;
             StartCoroutine(StartNextFight());
         }
+    }
+
+    private void SetMoveLeftText()
+    {
+        Debug.Log("Flip restant : " + numberOfMoveLeft + "/" + maxNumberOfMove);
+        moveLeftText.text = "Flip restant : " + numberOfMoveLeft + "/" + maxNumberOfMove;
     }
 
     private void SetEmptyCardSlot()
@@ -233,15 +244,14 @@ public class MemoryCombatManager : MonoBehaviour
         selectedCardManager.FlipCard();
         cardSlots[faceUpCardIndex].FlipCard();
         ResetSelectedCard();
-        if(numberOfMoveLeft == 1)
+        numberOfMoveLeft -= 1;
+        if (numberOfMoveLeft == 0)
         {
             // cool end of turn annimation ?
             isPlayerTurn = false;
             enemyCanAttack = true;
-        } else
-        {
-            numberOfMoveLeft -= 1;
         }
+        SetMoveLeftText();
     }
 
     public void SetCanResetGrid(bool value)
@@ -361,6 +371,7 @@ public class MemoryCombatManager : MonoBehaviour
 
         isPlayerTurn = true;
         numberOfMoveLeft = maxNumberOfMove;
+        SetMoveLeftText();
         player.NewTurn();
         cardIsClickedEvent.AddListener(CardIsClicked);
     }
@@ -403,7 +414,10 @@ public class MemoryCombatManager : MonoBehaviour
         player.HealCharacter(20);
         InitCurrentOpponent();
         yield return new WaitForSeconds(1f);
+        player.SetCharaForNewCombat();
         playerDeckSO.RestoreDeck();
+        numberOfMoveLeft = maxNumberOfMove;
+        SetMoveLeftText();
         StartCoroutine(FillGrid(0.5f));
     }
 

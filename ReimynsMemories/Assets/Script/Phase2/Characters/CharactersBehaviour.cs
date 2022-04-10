@@ -19,7 +19,7 @@ public abstract class CharacterBehaviour : ScriptableObject
     protected int currenthealthPoints;
     protected int attackMultiplier;
     protected MemoryCombatManager myManager;
-    protected float currentStrenght = 0;
+    protected int currentStrenght = 0;
     private enum passiveCapacities
     {
         protection,
@@ -125,7 +125,7 @@ public abstract class CharacterBehaviour : ScriptableObject
 
     public int GetAttackDamage(int originalValue)
     {
-        int val = originalValue * attackMultiplier;
+        int val = originalValue * attackMultiplier + currentStrenght;
         ResetAttackMultiplier();
         return val;
     }
@@ -137,6 +137,13 @@ public abstract class CharacterBehaviour : ScriptableObject
         currentStrenght = 0;
         InitialiseBaseDamage();
         InitialiseHP();
+        InitialiseShield();
+        ResetAttackMultiplier();
+    }
+
+    public void SetCharaForNewCombat()
+    {
+        currentStrenght = 0;
         InitialiseShield();
         ResetAttackMultiplier();
     }
