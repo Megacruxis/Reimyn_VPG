@@ -11,6 +11,7 @@ public class SwordOfLight : Card
     {
         opponent.TakeDamage(damages);
         Debug.Log("Sword " + opponent.GetCurrentHealthPoint());
+        player.GetMyManager().SetCanResetGrid(false);
         player.GetMyManager().ResetGrid();
     }
 }

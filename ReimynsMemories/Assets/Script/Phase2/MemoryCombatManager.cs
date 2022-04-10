@@ -22,6 +22,7 @@ public class MemoryCombatManager : MonoBehaviour
     private bool enoughtCardFaceUp;
     private bool isPlayerTurn;
     private bool enemyCanAttack;
+    private bool canResetGrid;
     private int gridNumberOfSlots;
     private int faceUpCardIndex;
     private List<int> emptycardSlots;
@@ -71,13 +72,12 @@ public class MemoryCombatManager : MonoBehaviour
         emptycardSlots = new List<int>();
         gridIsFilledEvent = new UnityEvent();
         gridIsFilledEvent.AddListener(GridIsFilled);
-
-        player.Init(this);
-        opponent.Init(this);
     }
 
     private void Start()
     {
+        player.Init(this);
+        opponent.Init(this);
         SetEmptyCardSlot();
         playerDeckSO.InitDeckForCombat();
         StartCoroutine(FillGrid(0));
@@ -156,7 +156,6 @@ public class MemoryCombatManager : MonoBehaviour
         cardIsClickedEvent.RemoveListener(CardIsClicked);
         DiscardAllCard();
         HideAllCard();
-        DiscardAllCard();
         StartCoroutine(FillGrid(0.8f));
     }
 
@@ -165,7 +164,7 @@ public class MemoryCombatManager : MonoBehaviour
      */
     public void CardIsClicked(CardDisplayManager selectedCardManager)
     {
-        int selectedCardIndex = numberOfColumn * selectedCardManager.GetSlotY() + selectedCardManager.GetSlotX();
+        int selectedCardIndex = CalculateCardIndex(selectedCardManager);
         if (faceUpCardIndex < 0)
         {
             selectedCardManager.FlipCard();
@@ -182,7 +181,6 @@ public class MemoryCombatManager : MonoBehaviour
                     if (selectedCardManager.GetMyCard().GetCardId() == cardSlots[faceUpCardIndex].GetMyCard().GetCardId())
                     {
                         selectedCardManager.FlipCard();
-                        selectedCardManager.GetMyCard().DoEffect(player,opponent);
                         PairFound(selectedCardManager);
                     }
                     else
@@ -205,23 +203,29 @@ public class MemoryCombatManager : MonoBehaviour
         isPlayerTurn = false;
     }
 
+    public void SetCanResetGrid(bool value)
+    {
+        canResetGrid = value;
+    }
+
     private void PairFound(CardDisplayManager selectedCardManager)
     {
         HideDiscoveredCard(selectedCardManager);
 
         playerDeckSO.AddToDiscardPile(selectedCardManager.GetMyCard());
-        emptycardSlots.Add(numberOfColumn * cardSlots[faceUpCardIndex].GetSlotY() + cardSlots[faceUpCardIndex].GetSlotX());
-        emptycardSlots.Add(numberOfColumn * selectedCardManager.GetSlotY() + selectedCardManager.GetSlotX());
+        emptycardSlots.Add(faceUpCardIndex);
+        emptycardSlots.Add(CalculateCardIndex(selectedCardManager));
 
         //cool animation
+        selectedCardManager.GetMyCard().DoEffect(player, opponent);
 
-
-        if (emptycardSlots.Count == gridNumberOfSlots)
+        if (emptycardSlots.Count == gridNumberOfSlots && canResetGrid)
         {
             StartCoroutine(FillGrid(1f));
         } 
         else
         {
+            canResetGrid = true;
             ResetSelectedCard();
         }       
     }
@@ -263,8 +267,14 @@ public class MemoryCombatManager : MonoBehaviour
             if(!card.GetIsHidden())
             {
                 playerDeckSO.AddToDiscardPile(card.GetMyCard());
+                emptycardSlots.Add(CalculateCardIndex(card));
             }
         }
+    }
+
+    public int CalculateCardIndex(CardDisplayManager selectedCardManager)
+    {
+        return numberOfColumn* selectedCardManager.GetSlotY() + selectedCardManager.GetSlotX();
     }
 
     private IEnumerator ExectuteEnemyMove()
