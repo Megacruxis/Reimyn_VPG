@@ -29,11 +29,23 @@ public class ShieldBar : MonoBehaviour
     public void SetShield(int shield)
     {
         slider.value = shield;
-        printSD.text = (slider.value + "/" + slider.maxValue);
+        if(shield > 0)
+        {
+            printSD.text = (slider.value + "/" + slider.maxValue);
+        } else
+        {
+            printSD.text = "";
+        }
     }
 
     public void SetLinkedCharacter(CharacterBehaviour linkedCharacter)
     {
+        linkedCharacterShield.setShield.RemoveListener(SetMaxShield);
+        linkedCharacterShield.changeShield.RemoveListener(SetShield);
         linkedCharacterShield = linkedCharacter;
+        linkedCharacterShield.setShield.AddListener(SetMaxShield);
+        linkedCharacterShield.changeShield.AddListener(SetShield);
+        SetMaxShield(linkedCharacter.GetMaxHealthPoints());
+        SetShield(linkedCharacter.GetShield());
     }
 }

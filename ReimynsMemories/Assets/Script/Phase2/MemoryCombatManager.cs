@@ -382,6 +382,8 @@ public class MemoryCombatManager : MonoBehaviour
     {
         opponents[currentOpponentIndex].Init(this);
         opponentsSprite[currentOpponentIndex].enabled = true;
+        opponentHealthBar.SetLinkedCharacter(opponents[currentOpponentIndex]);
+        opponentShieldBar.SetLinkedCharacter(opponents[currentOpponentIndex]);
     }
 
     private IEnumerator StartNextFight()

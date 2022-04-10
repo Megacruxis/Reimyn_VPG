@@ -1240,17 +1240,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 11400000, guid: 91fafc3f21a35c341af8fcfc33ddb810, type: 2}
+  playerDeckSO: {fileID: 11400000, guid: 4f2073e1775c792498712e1961cfae47, type: 2}
   opponents:
-  - {fileID: 11400000, guid: fb3564c16fd923b4987feb10253e032e, type: 2}
-  - {fileID: 11400000, guid: fb3564c16fd923b4987feb10253e032e, type: 2}
-  - {fileID: 11400000, guid: fb3564c16fd923b4987feb10253e032e, type: 2}
-  - {fileID: 11400000, guid: fb3564c16fd923b4987feb10253e032e, type: 2}
+  - {fileID: 11400000, guid: 0f003e416e18d614baa79b682e165ef1, type: 2}
+  - {fileID: 11400000, guid: 1a6a7fc79095f5d4d8a96b957d56e94f, type: 2}
+  - {fileID: 11400000, guid: d37201e2b084a224fbe610c64638bd2f, type: 2}
+  - {fileID: 11400000, guid: dd43399d461650344979ba97d566f3b4, type: 2}
   opponentsSprite:
   - {fileID: 251349944}
   - {fileID: 337122237}
   - {fileID: 1787952474}
   - {fileID: 1840356143}
-  playerDeckSO: {fileID: 11400000, guid: 4f2073e1775c792498712e1961cfae47, type: 2}
+  opponentHealthBar: {fileID: 1614589956}
+  opponentShieldBar: {fileID: 1519154387}
   numberOfLine: 3
   numberOfColumn: 6
   cardSlots:
@@ -1794,6 +1796,17 @@ Transform:
   m_Father: {fileID: 1870541008}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1519154387 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2341191549091805813, guid: 0ab303631053e5b4caae51cf62e0589b, type: 3}
+  m_PrefabInstance: {fileID: 180915452}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 059fc951e066dd440b9ad5b9d4fd3de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1561855710
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1864,6 +1877,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8937972956470402231, guid: fbe01a8f3ca249a4ab58eaf1f97d62d3, type: 3}
   m_PrefabInstance: {fileID: 1561855710}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1614589956 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2341191548437661512, guid: 0ab303631053e5b4caae51cf62e0589b, type: 3}
+  m_PrefabInstance: {fileID: 180915452}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dcd4f5d1979d56439e447f232044f21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1633638020
 GameObject:
   m_ObjectHideFlags: 0

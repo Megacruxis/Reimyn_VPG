@@ -35,6 +35,16 @@ public abstract class CharacterBehaviour : ScriptableObject
         return currenthealthPoints;
     }
 
+    public int GetMaxHealthPoints()
+    {
+        return maxHealthPoints;
+    }
+
+    public int GetShield()
+    {
+        return shield;
+    }
+
     public MemoryCombatManager GetMyManager()
     {
         return myManager;
