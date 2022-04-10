@@ -13,6 +13,11 @@ public class NovelController : MonoBehaviour
     private string storiesFolder;
     public List<Button> actionsButton = new List<Button>();
 
+    public TextAsset chap0;
+    public TextAsset chap1;
+    public TextAsset chap2;
+    public TextAsset chap3;
+
     [HideInInspector]
     public int progress;
     [HideInInspector]
@@ -167,10 +172,10 @@ public class NovelController : MonoBehaviour
             progress++;
             line = data[progress];
 
-            if (line == "{")
+            if (line.Contains("{") )
                 continue;
 
-            if (line != "}")
+            if (!line.Contains("}"))
             {
                 line = data[progress];
                 Debug.Log(line);
@@ -258,8 +263,25 @@ public class NovelController : MonoBehaviour
     public void LoadChapterFile(string fileName)
     {
         Debug.Log("Load chapter : " + storiesFolder  + fileName);
-        data = new List<string>(Resources.Load<TextAsset>(fileName).ToString().Split("\n"[0]));
-        if (handlingChapterFile != null)
+        string dat = "";
+        switch(fileName)
+        {
+            case "chapter0_start":
+                dat = chap0.text;
+                break;
+            case "stry_chap1":
+                dat = chap1.text;
+                break;
+            case "stry_chap2":
+                dat = chap2.text;
+                break;
+            case "stry_chap3":
+                dat = chap3.text;
+                break;
+        }
+
+        data = new List<string>(dat.Split('\n'));
+        if (handlingChapterFile !=  null)
             StopCoroutine(handlingChapterFile);
         if (handlingLine != null)
             StopCoroutine(handlingLine);
