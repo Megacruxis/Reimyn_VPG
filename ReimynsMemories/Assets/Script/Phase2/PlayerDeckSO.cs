@@ -80,6 +80,12 @@ public class PlayerDeckSO : ScriptableObject
         ShuffleDeck();
     }
 
+    public void RestoreDeck()
+    {
+        exilePile.Clear();
+        ResetDeck();
+    }
+
     public void ResetDeck()
     {
         currentDeck.Clear();

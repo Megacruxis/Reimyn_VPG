@@ -7,7 +7,8 @@ public class MemoryCombatManager : MonoBehaviour
 {
     [Header("Player info")]
     [SerializeField] private FriendlyBehaviour player;
-    [SerializeField] private EnemyBehaviour opponent;
+    [SerializeField] private List<EnemyBehaviour> opponents;
+    [SerializeField] private List<SpriteRenderer> opponentsSprite;
     [SerializeField] private PlayerDeckSO playerDeckSO;
 
     [Header("Grid info")]
@@ -23,6 +24,7 @@ public class MemoryCombatManager : MonoBehaviour
     private bool isPlayerTurn;
     private bool enemyCanAttack;
     private bool canResetGrid;
+    private int currentOpponentIndex;
     private int gridNumberOfSlots;
     private int faceUpCardIndex;
     private List<int> emptycardSlots;
@@ -35,9 +37,9 @@ public class MemoryCombatManager : MonoBehaviour
         {
             Debug.LogError("Missing reference to FriendlyBehaviour player in script MemoryCombatManager");
         }
-        if(opponent == null)
+        if(opponents == null)
         {
-            Debug.LogError("Missing reference to EnemyBehaviour opponent in script MemoryCombatManager");
+            Debug.LogError("Missing reference to List<EnemyBehaviour> opponents; opponent in script MemoryCombatManager");
         }
         if(playerDeckSO == null)
         {
@@ -57,6 +59,10 @@ public class MemoryCombatManager : MonoBehaviour
         {
             Debug.LogError("Error in script MemoryCombatManager, not enought card slot for the given number of line and column");
         }
+        if(opponentsSprite.Count != opponents.Count)
+        {
+            Debug.LogError("Error in script MemoryCombatManager, the number of opponent is different from the number of opponents sprite");
+        }
 
         gridNumberOfSlots = numberOfLine * numberOfColumn;
         if(gridNumberOfSlots % 2 == 1)
@@ -67,6 +73,7 @@ public class MemoryCombatManager : MonoBehaviour
 
 
         ResetSelectedCard();
+        currentOpponentIndex = 0;
         isPlayerTurn = true;
         enemyCanAttack = true;
         emptycardSlots = new List<int>();
@@ -77,7 +84,8 @@ public class MemoryCombatManager : MonoBehaviour
     private void Start()
     {
         player.Init(this);
-        opponent.Init(this);
+        
+        opponents[0].Init(this);
         SetEmptyCardSlot();
         playerDeckSO.InitDeckForCombat();
         StartCoroutine(FillGrid(0));
@@ -87,7 +95,7 @@ public class MemoryCombatManager : MonoBehaviour
     {
         if(!isPlayerTurn && enemyCanAttack)
         {
-            opponent.NewTurn();
+            opponents[currentOpponentIndex].NewTurn();
             enemyCanAttack = false;
             cardIsClickedEvent.RemoveListener(CardIsClicked);
             StartCoroutine(ExectuteEnemyMove());
@@ -225,7 +233,7 @@ public class MemoryCombatManager : MonoBehaviour
         emptycardSlots.Add(CalculateCardIndex(selectedCardManager));
 
         //cool animation
-        selectedCardManager.GetMyCard().DoEffect(player, opponent);
+        selectedCardManager.GetMyCard().DoEffect(player, opponents[currentOpponentIndex]);
 
         if (emptycardSlots.Count == gridNumberOfSlots && canResetGrid)
         {

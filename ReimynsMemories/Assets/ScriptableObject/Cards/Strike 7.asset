@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Strike 7
   m_EditorClassIdentifier: 
   cardId: 7
-  cardName: Strike
-  effectText: Deal 7 damages
-  cardFrontSprite: {fileID: 21300000, guid: 5814c39ae859b1940be28bca8fea72e3, type: 3}
+  exile: 0
+  cardFrontSprite: {fileID: 21300000, guid: 6a9dc9bdcb5aece4dbdc4130b384f56d, type: 3}
   cardStatus: 0
-  damages: 7
+  damages: 4
