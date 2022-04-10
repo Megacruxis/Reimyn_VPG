@@ -64,7 +64,7 @@ public abstract class CharacterBehaviour : ScriptableObject
     {
         if (shield>0) 
         {
-            if (shield>dmg)
+            if (shield>=dmg)
             {
                 shield -= dmg;
             }
@@ -79,7 +79,7 @@ public abstract class CharacterBehaviour : ScriptableObject
         }
         else
         {
-            int realDmg = shield-dmg;
+            int realDmg = -dmg;
             ChangeHP(realDmg);
             changeHealth.Invoke(currenthealthPoints);
         }
