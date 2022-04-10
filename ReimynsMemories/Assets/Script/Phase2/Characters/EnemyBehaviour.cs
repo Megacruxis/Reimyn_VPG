@@ -14,7 +14,7 @@ public class EnemyBehaviour : CharacterBehaviour
     [SerializeField] private int healValue;
     [SerializeField] private int blockValue;
 
-    public string ExectuteNextMove(FriendlyBehaviour player)
+    public bool ExectuteNextMove(FriendlyBehaviour player)
     {
         float rollFail = Random.Range(0f, 1f);
         if (rollFail>failRate)
@@ -23,7 +23,8 @@ public class EnemyBehaviour : CharacterBehaviour
             if (rollATK<atkBlockRatio)
             {
                 player.TakeDamage(baseDamage);
-                return "The enemy attacks you !";
+                Debug.Log("The enemy attacks you !");
+                return true;
             }
             else
             {
@@ -31,16 +32,19 @@ public class EnemyBehaviour : CharacterBehaviour
                 if (rollHP<healShieldRatio)
                 {
                     HealCharacter(healValue);
-                    return "The enemy heals !";
+                    Debug.Log("The enemy heals !");
+                    return false;
                 }
                 else
                 {
                     AddShield(blockValue);
-                    return "The enemy shields itself !";
+                    Debug.Log("The enemy shields itself !");
+                    return false;
                 }
             }
         }
-        return "The enemy fails his attack !";
+        Debug.Log("The enemy fails his attack !");
+        return false;
     }
 
     protected override void InitialiseHP()
