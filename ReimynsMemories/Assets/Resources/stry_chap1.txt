@@ -197,4 +197,4 @@ Aleebu "Hihihi !"
 
 Reimyn "Bon allez{wa 0,5}, en route !"
 
-load(stry_chap2.txt)
+load(stry_chap2)

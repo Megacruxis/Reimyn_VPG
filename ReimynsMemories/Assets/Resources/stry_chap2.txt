@@ -140,4 +140,4 @@ Aleebu "Oh. Oui, oui, allons-y..."
 hideSprite(Reimyn)
 hideSprite(Aleebu)
 
-load(stry_chap3.txt)
+load(stry_chap3)
