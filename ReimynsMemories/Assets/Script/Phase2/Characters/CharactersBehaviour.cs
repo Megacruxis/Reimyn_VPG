@@ -13,6 +13,8 @@ public abstract class CharacterBehaviour : ScriptableObject
 
     public UnityEvent<int> changeHealth;
     public UnityEvent<int> setHealth;
+    public UnityEvent<int> changeShield;
+    public UnityEvent<int> setShield;
 
     protected int currenthealthPoints;
     protected int attackMultiplier;
@@ -45,7 +47,11 @@ public abstract class CharacterBehaviour : ScriptableObject
     
     public void TakeDamage(int dmg)
     {
-        if (shield>dmg) {shield -= dmg;}
+        if (shield>dmg) 
+        {
+            shield -= dmg;
+            changeShield.Invoke(shield);    
+        }
         else
         {
             int realDmg = shield-dmg;
@@ -68,6 +74,7 @@ public abstract class CharacterBehaviour : ScriptableObject
     public void AddShield(int bonusShield)
     {
         shield += bonusShield;
+        changeShield.Invoke(shield);
     }
 
     public int GetAttackMultiplier()
@@ -112,5 +119,7 @@ public abstract class CharacterBehaviour : ScriptableObject
     {
         changeHealth = new UnityEvent<int>();
         setHealth = new UnityEvent<int>();
+        changeShield = new UnityEvent<int>();
+        setShield = new UnityEvent<int>();
     }
 }

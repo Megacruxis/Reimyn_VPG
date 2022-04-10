@@ -47,7 +47,7 @@ public class MemoryCombatManager : MonoBehaviour
         }
         if(numberOfColumn <= 0)
         {
-            Debug.LogError("Error in script MemoryCombatManager, numberOfColumn = " + numberOfColumn 
+            Debug.LogError("Error in script MemoryCombatManager, numberOfColumn = " + numberOfColumn
                 + " but should be greater than 0");
         }
         if(numberOfColumn <= 0)
@@ -83,9 +83,7 @@ public class MemoryCombatManager : MonoBehaviour
 
     private void Start()
     {
-        player.Init(this);
-        
-        opponents[0].Init(this);
+        StartCoroutine(InitPlayerAndOpponent());
         SetEmptyCardSlot();
         playerDeckSO.InitDeckForCombat();
         StartCoroutine(FillGrid(0));
@@ -114,7 +112,7 @@ public class MemoryCombatManager : MonoBehaviour
     /*
      * Fill the grids with card from the player deck
      */
-    private IEnumerator FillGrid(float delay) 
+    private IEnumerator FillGrid(float delay)
     {
         cardIsClickedEvent.RemoveListener(CardIsClicked);
         yield return new WaitForSeconds(delay);
@@ -198,7 +196,7 @@ public class MemoryCombatManager : MonoBehaviour
                         StartCoroutine(NotAPair(selectedCardManager));
                     }
                 }
-            } 
+            }
         }
     }
 
@@ -224,7 +222,7 @@ public class MemoryCombatManager : MonoBehaviour
         if(selectedCardManager.GetMyCard().GetExile())
         {
             playerDeckSO.ExileCard(selectedCardManager.GetMyCard());
-        } 
+        }
         else
         {
             playerDeckSO.AddToDiscardPile(selectedCardManager.GetMyCard());
@@ -238,12 +236,12 @@ public class MemoryCombatManager : MonoBehaviour
         if (emptycardSlots.Count == gridNumberOfSlots && canResetGrid)
         {
             StartCoroutine(FillGrid(1f));
-        } 
+        }
         else
         {
             canResetGrid = true;
             ResetSelectedCard();
-        }       
+        }
     }
 
     private void GridIsFilled()
@@ -311,4 +309,12 @@ public class MemoryCombatManager : MonoBehaviour
         player.NewTurn();
         cardIsClickedEvent.AddListener(CardIsClicked);
     }
+
+    public IEnumerator InitPlayerAndOpponent()
+    {
+        yield return new WaitForSeconds(0.1f);
+        player.Init(this);
+        opponent.Init(this);
+    }
+
 }

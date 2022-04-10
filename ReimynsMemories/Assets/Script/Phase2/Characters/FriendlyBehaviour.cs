@@ -9,11 +9,8 @@ public class FriendlyBehaviour : CharacterBehaviour
 {
     protected override void InitialiseHP()
     {
-        int start = 80;
-        currenthealthPoints = start;
-        maxHealthPoints = start;
-        setHealth = new UnityEvent<int>();
-        setHealth.Invoke(start);
+        currenthealthPoints = maxHealthPoints;
+        setHealth.Invoke(maxHealthPoints);
     }
 
 
@@ -25,6 +22,7 @@ public class FriendlyBehaviour : CharacterBehaviour
     protected override void InitialiseShield()
     {
         shield = 0;
+        setShield.Invoke(maxHealthPoints);
     }
 
 }

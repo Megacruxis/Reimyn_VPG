@@ -10,7 +10,7 @@ narrator "*Reimyn récupère le message{wa 0,5}, l'oiseau repart aussitôt*"
 
 Reimyn "*Reimyn se met alors à le lire avec attention*"
 
-displaySprite(spriteDeAleebu)
+displaySprite(0)
 
 Aleebu "Hey Rei' !{a}Quoi de neuf ?"
 
