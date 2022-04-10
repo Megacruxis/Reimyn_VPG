@@ -1,29 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public abstract class EnemyBehaviour : CharacterBehaviour
+[CreateAssetMenu(fileName = "GeneralEnemy", menuName = "Scriptable/Enemy/GeneralEnemy")]
+
+public class EnemyBehaviour : CharacterBehaviour
 {
-    public EnemyMovePool interPool;
+    [SerializeField] private float failRate;// scale the chance for the opponent to fail
+    [SerializeField] private float atkBlockRatio;
+    [SerializeField] private float healShieldRatio;
+    
+    [SerializeField] private int healValue;
+    [SerializeField] private int blockValue;
 
-    public void SetBaseBurnDamage(int dmg)
+    public string ExectuteNextMove(FriendlyBehaviour player)
     {
-        interPool.SetBurnDamage(dmg);
+        float rollFail = ((float)Random.Range(0, 100))/100f;
+        if (rollFail>failRate)
+        {
+            float rollATK = ((float)Random.Range(0, 100))/100f;
+            if (rollATK<atkBlockRatio)
+            {
+                player.TakeDamage(baseDamage);
+                return "The enemy attack you !";
+            }
+            else
+            {
+                float rollHP = ((float)Random.Range(0, 100))/100f;
+                if (rollHP<healShieldRatio)
+                {
+                    HealCharacter(healValue);
+                    return "The enemy heals !";
+                }
+                else
+                {
+                    AddShield(blockValue);
+                    return "The enemy shields itself !";
+                }
+            }
+        }
+        return "The enemy fail his attack !";
     }
 
-    public void EnemyNextMove()
+    protected override void InitialiseHP()
     {
-        interPool.SetNextMove(baseDamage);
+        currenthealthPoints = maxHealthPoints;
+        setHealth.Invoke(maxHealthPoints);
     }
 
-    public void EnemyApplyMove(FriendlyBehaviour player, Card card)
+    protected override void InitialiseBaseDamage()
     {
-        interPool.ApplyMove(player, card);
+
     }
 
-    public void EnemyApplyBurn(FriendlyBehaviour player)
+    protected override void InitialiseShield()
     {
-        player.TakeDamage(interPool.GetBurnDamage());
+        setShield.Invoke(maxHealthPoints);
     }
 
 }

@@ -873,7 +873,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 11400000, guid: 91fafc3f21a35c341af8fcfc33ddb810, type: 2}
-  opponent: {fileID: 11400000, guid: fb3564c16fd923b4987feb10253e032e, type: 2}
+  opponents: []
+  opponentsSprite: []
   playerDeckSO: {fileID: 11400000, guid: 4f2073e1775c792498712e1961cfae47, type: 2}
   numberOfLine: 3
   numberOfColumn: 6
