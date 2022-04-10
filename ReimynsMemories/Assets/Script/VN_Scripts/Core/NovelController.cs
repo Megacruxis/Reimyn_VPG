@@ -40,7 +40,7 @@ public class NovelController : MonoBehaviour
 
     void Start()
     {
-        storiesFolder = "Resources/VN_Ressources/Story/" + ((test)?"Test/":"Release/");
+        storiesFolder = "";
         LoadChapterFile("chapter0_start");
     }
     public void Auto()
@@ -258,7 +258,7 @@ public class NovelController : MonoBehaviour
     public void LoadChapterFile(string fileName)
     {
         Debug.Log("Load chapter : " + storiesFolder  + fileName);
-        data = FileManager.LoadFile(FileManager.savPath + storiesFolder + fileName);
+        data = new List<string>(Resources.Load<TextAsset>(fileName).ToString().Split("\n"[0]));
         if (handlingChapterFile != null)
             StopCoroutine(handlingChapterFile);
         if (handlingLine != null)
