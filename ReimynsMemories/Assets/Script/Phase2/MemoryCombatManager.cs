@@ -352,6 +352,11 @@ public class MemoryCombatManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Debug.Log(opponents[currentOpponentIndex].ExectuteNextMove(player));
         yield return new WaitForSeconds(1f);
+        if(player.GetCurrentHealthPoint() <= 0)
+        {
+            yield return new WaitForSeconds(1f);
+            SceneManager.LoadScene("WIP_Scene/MainMenu");
+        }
         // ennemy attack
 
         isPlayerTurn = true;
@@ -376,7 +381,7 @@ public class MemoryCombatManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("End");
+            SceneManager.LoadScene("WIP_Scene/End");
         }
     }
 
@@ -395,7 +400,7 @@ public class MemoryCombatManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         KillCurrentOpponent();
         yield return new WaitForSeconds(2f);
-        player.HealCharacter(30);
+        player.HealCharacter(20);
         InitCurrentOpponent();
         yield return new WaitForSeconds(1f);
         playerDeckSO.RestoreDeck();

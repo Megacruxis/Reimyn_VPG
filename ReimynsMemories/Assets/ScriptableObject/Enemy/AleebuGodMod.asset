@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948a30ac145fb5d4794643c5c54874bc, type: 3}
   m_Name: AleebuGodMod
   m_EditorClassIdentifier: 
-  maxHealthPoints: 40
-  baseDamage: 15
+  maxHealthPoints: 60
+  baseDamage: 18
   shield: 20
   characterSprite: {fileID: 21300000, guid: ae358d6dc371ec343a73cd5b60b8fff7, type: 3}
   changeHealth:
