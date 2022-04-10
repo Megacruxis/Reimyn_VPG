@@ -314,7 +314,7 @@ public class MemoryCombatManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         player.Init(this);
-        opponent.Init(this);
+        opponents[0].Init(this);
     }
 
 }
