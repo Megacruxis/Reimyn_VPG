@@ -31,4 +31,9 @@ public class ShieldBar : MonoBehaviour
         slider.value = shield;
         printSD.text = (slider.value + "/" + slider.maxValue);
     }
+
+    public void SetLinkedCharacter(CharacterBehaviour linkedCharacter)
+    {
+        linkedCharacterShield = linkedCharacter;
+    }
 }
