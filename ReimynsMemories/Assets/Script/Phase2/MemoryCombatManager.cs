@@ -30,6 +30,7 @@ public class MemoryCombatManager : MonoBehaviour
     private List<int> emptycardSlots;
     private UnityEvent gridIsFilledEvent;
 
+    private bool NewOpponent;
 
     private void Awake()
     {
@@ -79,10 +80,15 @@ public class MemoryCombatManager : MonoBehaviour
         emptycardSlots = new List<int>();
         gridIsFilledEvent = new UnityEvent();
         gridIsFilledEvent.AddListener(GridIsFilled);
+        NewOpponent = false;
     }
 
     private void Start()
     {
+        foreach(SpriteRenderer sprite in opponentsSprite)
+        {
+            sprite.enabled = false;
+        }
         StartCoroutine(InitPlayerAndOpponent());
         SetEmptyCardSlot();
         playerDeckSO.InitDeckForCombat();
@@ -97,6 +103,12 @@ public class MemoryCombatManager : MonoBehaviour
             enemyCanAttack = false;
             cardIsClickedEvent.RemoveListener(CardIsClicked);
             StartCoroutine(ExectuteEnemyMove());
+        }
+        if(NewOpponent)
+        {
+            NewOpponent = false;
+            KillCurrentOpponent();
+            StartCoroutine(StartNextFight());
         }
     }
 
@@ -163,7 +175,7 @@ public class MemoryCombatManager : MonoBehaviour
         cardIsClickedEvent.RemoveListener(CardIsClicked);
         DiscardAllCard();
         HideAllCard();
-        StartCoroutine(FillGrid(1.4f));
+        StartCoroutine(FillGrid(2f));
     }
 
     /*
@@ -233,6 +245,14 @@ public class MemoryCombatManager : MonoBehaviour
         //cool animation
         selectedCardManager.GetMyCard().DoEffect(player, opponents[currentOpponentIndex]);
 
+        if(opponents[currentOpponentIndex].GetCurrentHealthPoint() <= 0)
+        {
+            cardIsClickedEvent.RemoveListener(CardIsClicked);
+            ResetSelectedCard();
+            NewOpponent = true;
+            return;
+        }
+
         if (emptycardSlots.Count == gridNumberOfSlots && canResetGrid)
         {
             StartCoroutine(FillGrid(1f));
@@ -271,6 +291,11 @@ public class MemoryCombatManager : MonoBehaviour
         {
             card.HideCard(0.2f);
         }
+    }
+
+    public int GetNumberOfPairDiscovered()
+    {
+        return emptycardSlots.Count / 2;
     }
 
     public void DiscardAllCard()
@@ -314,7 +339,36 @@ public class MemoryCombatManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         player.Init(this);
-        opponents[0].Init(this);
+        InitCurrentOpponent();
+    }
+
+    private void KillCurrentOpponent()
+    {
+        opponentsSprite[currentOpponentIndex].enabled = false;
+        if(currentOpponentIndex < opponents.Count)
+        {
+            currentOpponentIndex++;
+        }
+        else
+        {
+            //TODO END GAME
+        }
+    }
+
+    private void InitCurrentOpponent()
+    {
+        opponents[currentOpponentIndex].Init(this);
+        opponentsSprite[currentOpponentIndex].enabled = true;
+    }
+
+    private IEnumerator StartNextFight()
+    {
+        HideAllCard();
+        yield return new WaitForSeconds(3f);
+        InitCurrentOpponent();
+        yield return new WaitForSeconds(1f);
+        playerDeckSO.RestoreDeck();
+        StartCoroutine(FillGrid(0.5f));
     }
 
 }
