@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NovelController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class NovelController : MonoBehaviour
     public string lastSpeaker = "";
     public bool test = false;
     private string storiesFolder;
+    public List<Button> actionsButton = new List<Button>();
 
     [HideInInspector]
     public int progress;
@@ -21,6 +23,7 @@ public class NovelController : MonoBehaviour
     public bool skip = false;
     private static int skipTimerMax = 30;
     private int skipTimer = skipTimerMax;
+    private bool interactable = true;
     [HideInInspector]
     public bool next = false;
 
@@ -51,9 +54,18 @@ public class NovelController : MonoBehaviour
 
     public void Next()
     {
-        next = true;
+        if (interactable)
+            next = true;
     }
 
+    public void SetInteraction(bool interaction)
+    {
+        interactable = interaction;
+        foreach(Button b in actionsButton)
+        {
+            b.interactable = interaction;
+        }
+    }
 
     public void Back()
     {
@@ -343,6 +355,8 @@ public class NovelController : MonoBehaviour
 
             case "load":
             case "setBackground":
+            case "playSong":
+            case "stopSong":
                 //Nothing no reveartable
                 break;
             default:
@@ -370,10 +384,26 @@ public class NovelController : MonoBehaviour
             case "hideSprite":
                 HandleHideSprite(data[1]);
                 break;
+            case "playSong":
+                HandlePlaySong(data[1]);
+                break;
+            case "stopSong":
+                HandleStopSong(data[1]);
+                break;
             default:
                 Debug.Log("Unknow command " + data[0]);
                 break;
         }
+    }
+
+    void HandlePlaySong(string infos)
+    {
+        MusicManager.instance.PlayMusic(int.Parse(infos));
+    }
+
+    void HandleStopSong(string infos)
+    {
+        MusicManager.instance.StopMusic(int.Parse(infos));
     }
 
     void HandleSetBackground(string infos)

@@ -16,18 +16,25 @@ public class ChoiceScreen : MonoBehaviour
 
     public VerticalLayoutGroup layoutGroup;
 
+    public GameObject whiteScreen;
+
     private void Awake()
     {
-        instance = this;
-        Hide();
+        instance = this;   
     }
 
+    private void Start()
+    {
+        Hide();
+    }
     public static void Show(params string[] choices)
     {
         instance.root.SetActive(true);
         if (isShowingChoices)
             instance.StopCoroutine(showingChoices);
 
+        NovelController.instance.SetInteraction(false);
+        instance.whiteScreen.SetActive(true);
         showingChoices = instance.StartCoroutine(ShowingChoices(choices));
     }
 
@@ -38,7 +45,8 @@ public class ChoiceScreen : MonoBehaviour
         showingChoices = null;
 
         ClearAllCurentChoices();
-
+        NovelController.instance.SetInteraction(true);
+        instance.whiteScreen.SetActive(false);
         instance.root.SetActive(false);
     }
 
