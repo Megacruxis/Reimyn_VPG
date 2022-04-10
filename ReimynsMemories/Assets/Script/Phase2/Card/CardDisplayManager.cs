@@ -138,13 +138,13 @@ public class CardDisplayManager : MonoBehaviour
 
     public void HideCard(float delay)
     {
+        isHidden = true;
         StartCoroutine(WaitToHide(delay));
     }
 
     public IEnumerator WaitToHide(float delay)
     {
-        yield return new WaitForSeconds(delay);
-        isHidden = true;
+        yield return new WaitForSeconds(delay);   
         transform.GetChild(0).gameObject.SetActive(false);
         if (isFacedUp)
         {
@@ -154,13 +154,13 @@ public class CardDisplayManager : MonoBehaviour
 
     public void DisplayCard(float delay)
     {
+        isHidden = false;
         StartCoroutine(WaitToDisplay(delay));
     }
 
     public IEnumerator WaitToDisplay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        isHidden = false;
         transform.GetChild(0).gameObject.SetActive(true);
     }
 }
