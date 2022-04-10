@@ -7,9 +7,13 @@ public class MemoryCombatManager : MonoBehaviour
 {
     [Header("Player info")]
     [SerializeField] private FriendlyBehaviour player;
+    [SerializeField] private PlayerDeckSO playerDeckSO;
+
+    [Header("Opponents info")]
     [SerializeField] private List<EnemyBehaviour> opponents;
     [SerializeField] private List<SpriteRenderer> opponentsSprite;
-    [SerializeField] private PlayerDeckSO playerDeckSO;
+    [SerializeField] private HealthBar opponentHealthBar;
+    [SerializeField] private ShieldBar opponentShieldBar;
 
     [Header("Grid info")]
     [SerializeField] private int numberOfLine;
@@ -40,13 +44,21 @@ public class MemoryCombatManager : MonoBehaviour
         }
         if(opponents == null)
         {
-            Debug.LogError("Missing reference to List<EnemyBehaviour> opponents; opponent in script MemoryCombatManager");
+            Debug.LogError("Missing reference to List<EnemyBehaviour> opponents opponent in script MemoryCombatManager");
         }
         if(playerDeckSO == null)
         {
             Debug.LogError("Missing reference to PlayerDeckSO playerDeckSO in script MemoryCombatManager");
         }
-        if(numberOfColumn <= 0)
+        if (opponentHealthBar == null)
+        {
+            Debug.LogError("Missing reference to HealthBar opponentHealthBar in script MemoryCombatManager");
+        }
+        if(opponentShieldBar == null)
+        {
+            Debug.LogError("Missing reference to opponentShieldBar in script MemoryCombatManager");
+        }
+        if (numberOfColumn <= 0)
         {
             Debug.LogError("Error in script MemoryCombatManager, numberOfColumn = " + numberOfColumn
                 + " but should be greater than 0");
@@ -367,6 +379,7 @@ public class MemoryCombatManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         InitCurrentOpponent();
         yield return new WaitForSeconds(1f);
+        DiscardAllCard();
         playerDeckSO.RestoreDeck();
         StartCoroutine(FillGrid(0.5f));
     }
