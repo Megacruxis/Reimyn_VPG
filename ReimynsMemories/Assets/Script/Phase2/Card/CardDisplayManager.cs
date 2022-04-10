@@ -38,7 +38,7 @@ public class CardDisplayManager : MonoBehaviour
         myCard = null;
         coroutineAllowed = true;
         isFacedUp = false;
-        HideCard();
+        HideCard(0f);
     }
 
     public int GetSlotX()
@@ -56,6 +56,11 @@ public class CardDisplayManager : MonoBehaviour
         return myCard;
     }
 
+    public bool GetIsHidden()
+    {
+        return isHidden;
+    }
+
     /*
      * Used by game manager to set the script info
      */
@@ -68,7 +73,6 @@ public class CardDisplayManager : MonoBehaviour
         {
             StartCoroutine(RotateCard());
         }
-        DisplayCard(0.18f);
     }
 
 
@@ -132,14 +136,30 @@ public class CardDisplayManager : MonoBehaviour
         isFacedUp = !isFacedUp;
     }
 
-    public void HideCard()
+    public void HideCard(float delay)
     {
+        StartCoroutine(WaitToHide(delay));
+    }
+
+    public IEnumerator WaitToHide(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         isHidden = true;
         transform.GetChild(0).gameObject.SetActive(false);
+        if (isFacedUp)
+        {
+            StartCoroutine(RotateCard());
+        }
     }
 
     public void DisplayCard(float delay)
     {
+        StartCoroutine(WaitToDisplay(delay));
+    }
+
+    public IEnumerator WaitToDisplay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         isHidden = false;
         transform.GetChild(0).gameObject.SetActive(true);
     }

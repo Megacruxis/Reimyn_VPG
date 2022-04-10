@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7df44b4292d589489cc0c38fd580d3d, type: 3}
+  m_Name: SwordOfLight
+  m_EditorClassIdentifier: 
+  cardId: 9
+  cardName: "\xE9p\xE9e de lumi\xE8re"
+  effectText: deal 15 damages
+  cardFrontSprite: {fileID: 21300000, guid: 4c0ebcda8b7146442950806bcbf27a1d, type: 3}
+  cardStatus: 0
+  damages: 15
