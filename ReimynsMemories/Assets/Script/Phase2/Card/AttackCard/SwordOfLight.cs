@@ -9,7 +9,7 @@ public class SwordOfLight : Card
 
     public override void DoEffect(FriendlyBehaviour player, EnemyBehaviour opponent)
     {
-        opponent.TakeDamage(damages);
+        opponent.TakeDamage(player.GetAttackDamage(damages));
         Debug.Log("Sword " + opponent.GetCurrentHealthPoint());
         player.GetMyManager().SetCanResetGrid(false);
         player.GetMyManager().ResetGrid();

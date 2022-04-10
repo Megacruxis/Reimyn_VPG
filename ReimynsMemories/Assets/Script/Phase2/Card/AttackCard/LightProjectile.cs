@@ -8,7 +8,7 @@ public class LightProjectile : Card
     [SerializeField] private int damages;
     public override void DoEffect(FriendlyBehaviour player, EnemyBehaviour opponent)
     {
-        opponent.TakeDamage(damages);
+        opponent.TakeDamage(player.GetAttackDamage(damages));
         Debug.Log("Projectile " + opponent.GetCurrentHealthPoint());
     }
 }
