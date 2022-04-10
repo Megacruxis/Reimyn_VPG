@@ -12,8 +12,9 @@ public class ChoiceButton : MonoBehaviour
 
     public void ButtonClicked()
     {
-        NovelController.instance.Next();
+        Debug.Log("Clicked on button " + choiceIndex);
         ChoiceScreen.lastChoiceMade.index = choiceIndex;
+        NovelController.instance.Next();
         ChoiceScreen.Hide();
     }
 

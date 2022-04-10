@@ -86,7 +86,6 @@ public class NovelController : MonoBehaviour
                     StopAllCoroutines();
                     ChoiceScreen.Hide();
                     progress--;
-                    Next();
                     handlingChapterFile = StartCoroutine(HandleChapterFile());
                 }
             }
@@ -137,13 +136,14 @@ public class NovelController : MonoBehaviour
             {   
 
                 string line = data[progress];
-
+                Debug.Log("HandleChapterFile : line " + line);
                 if (line.StartsWith("choice") )
                 {
                     yield return HandlingChoiceLine(line);
                 }
                 else
                 {
+                    Debug.Log("HandleChapterFile : progress " + progress);
                     HandleLine(line);
                     progress++;
                     while(isHandlingLine)
@@ -192,6 +192,11 @@ public class NovelController : MonoBehaviour
 
         }
 
+        Debug.Log("Choice count : " + choices.Count);
+        foreach(string c in choices)
+        {
+            Debug.Log(c);
+        }
         if (choices.Count > 0)
         {
             ChoiceScreen.Show(choices.ToArray());
@@ -200,7 +205,9 @@ public class NovelController : MonoBehaviour
             while (ChoiceScreen.isWaitingForChoiceToBeMade)
                 yield return new WaitForEndOfFrame();
 
+            Debug.Log("Choice : " + ChoiceScreen.lastChoiceMade.index);
             List<string> action = actions[ChoiceScreen.lastChoiceMade.index];
+            ChoiceScreen.lastChoiceMade.index = -1;
 
             Next();
             for (int i = 0; i < action.Count; i ++)
@@ -250,6 +257,7 @@ public class NovelController : MonoBehaviour
 
     public void LoadChapterFile(string fileName)
     {
+        Debug.Log("Load chapter : " + storiesFolder  + fileName);
         data = FileManager.LoadFile(FileManager.savPath + storiesFolder + fileName);
         if (handlingChapterFile != null)
             StopCoroutine(handlingChapterFile);
@@ -257,7 +265,6 @@ public class NovelController : MonoBehaviour
             StopCoroutine(handlingLine);
 
         progress = 0;
-        Next();
         handlingChapterFile = StartCoroutine(HandleChapterFile());
     }
 
@@ -277,6 +284,7 @@ public class NovelController : MonoBehaviour
         CLM.Line line = CLM.Interpret(Rawline);
 
         StopHandlingLine();
+        Debug.Log("Handle Line : Line  " + Rawline);
         handlingLine = StartCoroutine(HandleLineC(line));
     }
 
@@ -293,7 +301,7 @@ public class NovelController : MonoBehaviour
         while (lineProgress < line.segments.Count)
         {
             posSegment++;
-            next = false;
+            next = false;       
             CLM.Line.Segment segment = line.segments[lineProgress];
 
             if (lineProgress > 0)
