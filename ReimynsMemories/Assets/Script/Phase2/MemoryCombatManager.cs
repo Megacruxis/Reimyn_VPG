@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class MemoryCombatManager : MonoBehaviour
 {
@@ -119,7 +120,6 @@ public class MemoryCombatManager : MonoBehaviour
         if(NewOpponent)
         {
             NewOpponent = false;
-            KillCurrentOpponent();
             StartCoroutine(StartNextFight());
         }
     }
@@ -187,7 +187,7 @@ public class MemoryCombatManager : MonoBehaviour
         cardIsClickedEvent.RemoveListener(CardIsClicked);
         DiscardAllCard();
         HideAllCard();
-        StartCoroutine(FillGrid(2f));
+        StartCoroutine(FillGrid(2.5f));
     }
 
     /*
@@ -293,8 +293,8 @@ public class MemoryCombatManager : MonoBehaviour
 
     private void HideDiscoveredCard(CardDisplayManager selectedCardManager)
     {
-        selectedCardManager.HideCard(1f);
-        cardSlots[faceUpCardIndex].HideCard(1f);
+        selectedCardManager.HideCard(2f);
+        cardSlots[faceUpCardIndex].HideCard(2f);
     }
 
     public void HideAllCard()
@@ -363,7 +363,7 @@ public class MemoryCombatManager : MonoBehaviour
         }
         else
         {
-            //TODO END GAME
+            SceneManager.LoadScene("End");
         }
     }
 
@@ -377,7 +377,10 @@ public class MemoryCombatManager : MonoBehaviour
     {
         DiscardAllCard();
         HideAllCard();
+        yield return new WaitForSeconds(1.5f);
+        KillCurrentOpponent();
         yield return new WaitForSeconds(2f);
+        player.HealCharacter(30);
         InitCurrentOpponent();
         yield return new WaitForSeconds(1f);
         playerDeckSO.RestoreDeck();
