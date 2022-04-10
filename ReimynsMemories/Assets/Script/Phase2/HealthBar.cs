@@ -14,10 +14,6 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         linkedHealthStart.setHealth.AddListener(SetMaxHealth);
-    }
-
-    private void Update()
-    {
         linkedHealthChange.changeHealth.AddListener(SetHealth);
     }
 

@@ -38,7 +38,7 @@ public class CardDisplayManager : MonoBehaviour
         myCard = null;
         coroutineAllowed = true;
         isFacedUp = false;
-        isHidden = false;
+        HideCard();
     }
 
     public int GetSlotX()
@@ -68,7 +68,7 @@ public class CardDisplayManager : MonoBehaviour
         {
             StartCoroutine(RotateCard());
         }
-        DisplayCard();
+        DisplayCard(0.18f);
     }
 
 
@@ -138,7 +138,7 @@ public class CardDisplayManager : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    public void DisplayCard()
+    public void DisplayCard(float delay)
     {
         isHidden = false;
         transform.GetChild(0).gameObject.SetActive(true);

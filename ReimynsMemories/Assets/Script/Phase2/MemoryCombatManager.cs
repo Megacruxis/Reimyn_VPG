@@ -25,6 +25,7 @@ public class MemoryCombatManager : MonoBehaviour
     private int gridNumberOfSlots;
     private int faceUpCardIndex;
     private List<int> emptycardSlots;
+    private UnityEvent gridIsFilledEvent;
 
 
     private void Awake()
@@ -58,20 +59,21 @@ public class MemoryCombatManager : MonoBehaviour
             Debug.LogError("Error in script MemoryCombatManager, number of card slots should be an even number");
         }
         cardIsClickedEvent = new UnityEvent<CardDisplayManager>();
-        cardIsClickedEvent.AddListener(CardIsClicked);
 
-        enoughtCardFaceUp = false;
+
+        ResetSelectedCard();
         isPlayerTurn = true;
         enemyCanAttack = true;
-        faceUpCardIndex = -1;
         emptycardSlots = new List<int>();
+        gridIsFilledEvent = new UnityEvent();
+        gridIsFilledEvent.AddListener(GridIsFilled);
     }
 
     private void Start()
     {
         SetEmptyCardSlot();
         playerDeckSO.InitDeckForCombat();
-        FillGrid();
+        StartCoroutine(FillGrid());
     }
 
     private void Update()
@@ -96,8 +98,9 @@ public class MemoryCombatManager : MonoBehaviour
     /*
      * Fill the grids with card from the player deck
      */
-    private void FillGrid() 
+    private IEnumerator FillGrid() 
     {
+        cardIsClickedEvent.RemoveListener(CardIsClicked);
         for (int i = 0; i < gridNumberOfSlots/2; i++)
         {
             if(!playerDeckSO.CanDraw())
@@ -108,20 +111,30 @@ public class MemoryCombatManager : MonoBehaviour
             if(selectedCard == null)
             {
                 Debug.LogError("Error in script MemoryCombatManager, could not fill the grid, deck does not contain enought cards");
-                return;
+                yield break;
             }
             for(int r = 0; r < 2; r++)
             {
                 if(emptycardSlots.Count == 0)
                 {
                     Debug.LogError("Error in script MemoryCombatManager, no empty card slot left");
-                    return;
+                    yield break;
                 }
                 int selectedSlot = emptycardSlots[Random.Range(0, emptycardSlots.Count)];
                 emptycardSlots.Remove(selectedSlot);
                 cardSlots[selectedSlot].SetCardInfo(selectedCard, this);
+                yield return new WaitForSeconds(0.5f);
             }
         }
+        gridIsFilledEvent.Invoke();
+    }
+
+    /*
+     * Putt all card in the grid in the discard pile and refill it
+     */
+    public void ResetGrid()
+    {
+        StartCoroutine(FillGrid());
     }
 
     /*
@@ -164,8 +177,7 @@ public class MemoryCombatManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         selectedCardManager.FlipCard();
         cardSlots[faceUpCardIndex].FlipCard();
-        faceUpCardIndex = -1;
-        enoughtCardFaceUp = false;
+        ResetSelectedCard();
         // cool end of turn annimation ?
         isPlayerTurn = false;
     }
@@ -186,12 +198,28 @@ public class MemoryCombatManager : MonoBehaviour
         if (emptycardSlots.Count == gridNumberOfSlots)
         {
             yield return new WaitForSeconds(1f);
-            FillGrid();
-        }    
+            StartCoroutine(FillGrid());
+        } 
+        else
+        {
+            ResetSelectedCard();
+        }       
+    }
 
+    private void GridIsFilled()
+    {
+        cardIsClickedEvent.AddListener(CardIsClicked);
+        ResetSelectedCard();
+        gridIsFilledEvent.RemoveListener(GridIsFilled);
+    }
+
+    /*
+     * Reset the variable in order to enable the player to select card again
+     */
+    private void ResetSelectedCard()
+    {
         faceUpCardIndex = -1;
         enoughtCardFaceUp = false;
-        
     }
 
     private void HideDiscoveredCard(CardDisplayManager selectedCardManager)
@@ -209,5 +237,6 @@ public class MemoryCombatManager : MonoBehaviour
         // ennemy attack
 
         isPlayerTurn = true;
+        cardIsClickedEvent.AddListener(CardIsClicked);
     }
 }
