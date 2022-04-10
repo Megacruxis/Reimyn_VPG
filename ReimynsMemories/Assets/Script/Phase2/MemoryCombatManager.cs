@@ -20,6 +20,8 @@ public class MemoryCombatManager : MonoBehaviour
     public UnityEvent<CardDisplayManager> cardIsClickedEvent;
 
     private bool enoughtCardFaceUp;
+    private bool isPlayerTurn;
+    private bool enemyCanAttack;
     private int gridNumberOfSlots;
     private int faceUpCardIndex;
     private List<int> emptycardSlots;
@@ -59,6 +61,8 @@ public class MemoryCombatManager : MonoBehaviour
         cardIsClickedEvent.AddListener(CardIsClicked);
 
         enoughtCardFaceUp = false;
+        isPlayerTurn = true;
+        enemyCanAttack = true;
         faceUpCardIndex = -1;
         emptycardSlots = new List<int>();
     }
@@ -72,7 +76,12 @@ public class MemoryCombatManager : MonoBehaviour
 
     private void Update()
     {
-        
+        if(!isPlayerTurn && enemyCanAttack)
+        {
+            enemyCanAttack = false;
+            cardIsClickedEvent.RemoveListener(CardIsClicked);
+            StartCoroutine(ExectuteEnemyMove());
+        }
     }
 
     private void SetEmptyCardSlot()
@@ -157,7 +166,8 @@ public class MemoryCombatManager : MonoBehaviour
         cardSlots[faceUpCardIndex].FlipCard();
         faceUpCardIndex = -1;
         enoughtCardFaceUp = false;
-        //pass turn
+        // cool end of turn annimation ?
+        isPlayerTurn = false;
     }
 
     private IEnumerator PairFound(CardDisplayManager selectedCardManager)
@@ -171,7 +181,6 @@ public class MemoryCombatManager : MonoBehaviour
         emptycardSlots.Add(numberOfColumn * selectedCardManager.GetSlotY() + selectedCardManager.GetSlotX());
 
         //cool animation
-        //pair effect
 
 
         if (emptycardSlots.Count == gridNumberOfSlots)
@@ -191,5 +200,14 @@ public class MemoryCombatManager : MonoBehaviour
         cardSlots[faceUpCardIndex].FlipCard();
         selectedCardManager.HideCard();
         cardSlots[faceUpCardIndex].HideCard();
+    }
+
+    private IEnumerator ExectuteEnemyMove()
+    {
+        //ennemy annimation start
+        yield return new WaitForSeconds(0.1f);
+        // ennemy attack
+
+        isPlayerTurn = true;
     }
 }
