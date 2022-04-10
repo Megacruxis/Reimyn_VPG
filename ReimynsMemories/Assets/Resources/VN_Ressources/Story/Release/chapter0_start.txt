@@ -1,0 +1,5 @@
+setBackground(1)
+
+narrator "Quartier Général des Purificateurs,{wa 1} Nord-Ouest du Royaume de Mahara"
+
+load(stry_chap1.txt)

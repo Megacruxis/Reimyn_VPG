@@ -2,9 +2,13 @@ narrator "testNarra"
 
 Benjamin "a{w 2}b{a}c{c}d"
 
+playSong(0)
+
 "lechoixapres"
 
-choice fais un choix
+stopSong(0)
+
+choice
 {
 	"CHOIX1"3
 		Benj "a"
@@ -14,7 +18,7 @@ choice fais un choix
 		"e"
 		"f"
 	"CHOIX3"1
-		load(chapter0_b)
+		load(chapter0_a)
 }
 
 "h"
