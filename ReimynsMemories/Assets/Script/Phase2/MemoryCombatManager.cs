@@ -398,7 +398,7 @@ public class MemoryCombatManager : MonoBehaviour
         if(player.GetCurrentHealthPoint() <= 0)
         {
             yield return new WaitForSeconds(1f);
-            SceneManager.LoadScene("WIP_Scene/MainMenu");
+            SceneManager.LoadScene(0);
         }
         // ennemy attack
 
@@ -425,7 +425,7 @@ public class MemoryCombatManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("WIP_Scene/End");
+            SceneManager.LoadScene(2);
         }
     }
 
