@@ -19,7 +19,7 @@ public abstract class CharacterBehaviour : ScriptableObject
     protected int currenthealthPoints;
     protected int attackMultiplier;
     protected MemoryCombatManager myManager;
-
+    protected float currentStrenght = 0;
     private enum passiveCapacities
     {
         protection,
@@ -33,6 +33,11 @@ public abstract class CharacterBehaviour : ScriptableObject
     public int GetCurrentHealthPoint()
     {
         return currenthealthPoints;
+    }
+
+    public void GainStrenght(int value)
+    {
+        currentStrenght += value;
     }
 
     public int GetMaxHealthPoints()
@@ -119,6 +124,7 @@ public abstract class CharacterBehaviour : ScriptableObject
     public void Init(MemoryCombatManager myManager)
     {
         this.myManager = myManager;
+        currentStrenght = 0,
         InitialiseBaseDamage();
         InitialiseHP();
         InitialiseShield();

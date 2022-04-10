@@ -189,7 +189,7 @@ public class MemoryCombatManager : MonoBehaviour
     {
         cardIsClickedEvent.RemoveListener(CardIsClicked);
         DiscardAllCard();
-        HideAllCard();
+        HideAllCard(0.2f);
         StartCoroutine(FillGrid(2.5f));
     }
 
@@ -302,15 +302,15 @@ public class MemoryCombatManager : MonoBehaviour
 
     private void HideDiscoveredCard(CardDisplayManager selectedCardManager)
     {
-        selectedCardManager.HideCard(2f);
-        cardSlots[faceUpCardIndex].HideCard(2f);
+        selectedCardManager.HideCard(1.2f);
+        cardSlots[faceUpCardIndex].HideCard(1.2f);
     }
 
-    public void HideAllCard()
+    public void HideAllCard(float delay)
     {
         foreach(CardDisplayManager card in cardSlots)
         {
-            card.HideCard(0.2f);
+            card.HideCard(delay);
         }
     }
 
@@ -390,7 +390,7 @@ public class MemoryCombatManager : MonoBehaviour
     private IEnumerator StartNextFight()
     {
         DiscardAllCard();
-        HideAllCard();
+        HideAllCard(1f);
         yield return new WaitForSeconds(1.5f);
         KillCurrentOpponent();
         yield return new WaitForSeconds(2f);
