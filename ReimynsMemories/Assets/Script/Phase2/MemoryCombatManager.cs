@@ -134,7 +134,6 @@ public class MemoryCombatManager : MonoBehaviour
 
     private void SetMoveLeftText()
     {
-        Debug.Log("Flip restant : " + numberOfMoveLeft + "/" + maxNumberOfMove);
         moveLeftText.text = "Flip restant : " + numberOfMoveLeft + "/" + maxNumberOfMove;
     }
 
@@ -360,8 +359,42 @@ public class MemoryCombatManager : MonoBehaviour
     {
         //ennemy annimation start
         yield return new WaitForSeconds(0.5f);
-        Debug.Log(opponents[currentOpponentIndex].ExectuteNextMove(player));
-        yield return new WaitForSeconds(1f);
+        bool isAttacking = opponents[currentOpponentIndex].ExectuteNextMove(player);
+        if(isAttacking)
+        {
+            GameObject opponent = opponentsSprite[currentOpponentIndex].gameObject;
+            Vector3 opponentPos = opponent.transform.position;
+            for (int i = 0; i < 3; i++)
+            {
+                opponent.transform.position = new Vector3(opponentPos.x + 0.15f, opponentPos.y, opponentPos.z);
+                yield return new WaitForSeconds(0.1f);
+            }
+            yield return new WaitForSeconds(0.2f);
+            opponentPos = opponent.transform.position;
+            for (int i = 0; i < 3; i++)
+            {
+                opponent.transform.position = new Vector3(opponentPos.x - 0.15f, opponentPos.y, opponentPos.z);
+                yield return new WaitForSeconds(0.1f);
+            }
+            /*
+            for(int i = 0; i < 10; i++)
+            {
+                Vector3 newPos;
+                if (i%2 == 0)
+                {
+                    newPos = new Vector3(opponentPos.x + 0.01f, opponentPos.y, opponentPos.z);
+                } else
+                {
+                    newPos = new Vector3(opponentPos.x - 0.2f, opponentPos.y, opponentPos.z);
+                }
+                opponent.transform.position = newPos;
+            }
+            */
+
+        } else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
         if(player.GetCurrentHealthPoint() <= 0)
         {
             yield return new WaitForSeconds(1f);
