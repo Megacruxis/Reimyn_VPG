@@ -9,7 +9,7 @@ public class LightBall : Card
 
     public override void DoEffect(FriendlyBehaviour player, EnemyBehaviour opponent)
     {
-        opponent.TakeDamage(damages);
+        opponent.TakeDamage(player.GetAttackDamage(damages));
         Debug.Log("Bouboule " + opponent.GetCurrentHealthPoint());
     }
 }

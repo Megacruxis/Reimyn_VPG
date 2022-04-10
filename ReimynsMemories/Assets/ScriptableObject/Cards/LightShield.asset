@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa76433189f66ff4b943845717aee06c, type: 3}
-  m_Name: Strike 8
+  m_Script: {fileID: 11500000, guid: 1369a8343e5db6049a092008d44e429c, type: 3}
+  m_Name: LightShield
   m_EditorClassIdentifier: 
-  cardId: 8
-  cardName: Strike
-  effectText: Deal 7 damages
-  cardFrontSprite: {fileID: 21300000, guid: c89c72c711694c241acf3eb5747d8665, type: 3}
+  cardId: 0
+  cardName: 
+  effectText: 
+  exile: 0
+  cardFrontSprite: {fileID: 0}
   cardStatus: 0
-  damages: 7
+  shieldValue: 0

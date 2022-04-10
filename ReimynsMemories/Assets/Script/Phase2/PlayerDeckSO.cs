@@ -47,6 +47,11 @@ public class PlayerDeckSO : ScriptableObject
         }
     }
 
+    public void ExileCard(Card cardToAdd)
+    {
+        exilePile.Add(cardToAdd);
+    }
+
     public void AddCardToDeck(Card cardToAdd)
     {
         playerDecklist.Add(cardToAdd);

@@ -15,6 +15,7 @@ public abstract class CharacterBehaviour : ScriptableObject
     public UnityEvent<int> setHealth;
 
     protected int currenthealthPoints;
+    protected int attackMultiplier;
     protected MemoryCombatManager myManager;
 
     private enum passiveCapacities
@@ -69,6 +70,34 @@ public abstract class CharacterBehaviour : ScriptableObject
         shield += bonusShield;
     }
 
+    public int GetAttackMultiplier()
+    {
+        return attackMultiplier;
+    }
+
+    public void ResetAttackMultiplier()
+    {
+        attackMultiplier = 1;
+    }
+
+    public void UpdateAttackMultiplier(int multiply)
+    {
+        attackMultiplier *= multiply;
+    }
+
+    public void NewTurn()
+    {
+        shield /= 2;
+        ResetAttackMultiplier();
+    }
+
+    public int GetAttackDamage(int originalValue)
+    {
+        int val = originalValue * attackMultiplier;
+        ResetAttackMultiplier();
+        return val;
+    }
+
     // Used to set the stat of the player at their default value 
     public void Init(MemoryCombatManager myManager)
     {
@@ -76,6 +105,7 @@ public abstract class CharacterBehaviour : ScriptableObject
         InitialiseBaseDamage();
         InitialiseHP();
         InitialiseShield();
+        ResetAttackMultiplier();
     }
 
     public void OnEnable()

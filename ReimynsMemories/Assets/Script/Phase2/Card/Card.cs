@@ -7,6 +7,7 @@ public abstract class Card : ScriptableObject
     [SerializeField] private int cardId;
     [SerializeField] private string cardName;
     [SerializeField] private string effectText;
+    [SerializeField] private bool exile;
 
     [SerializeField] private Sprite cardFrontSprite;
 
@@ -32,6 +33,11 @@ public abstract class Card : ScriptableObject
     public int GetCardId()
     {
         return cardId;
+    }
+
+    public bool GetExile()
+    {
+        return exile;
     }
 
     public string GetCardStatus()
