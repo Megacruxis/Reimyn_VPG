@@ -23,7 +23,7 @@ public class EnemyBehaviour : CharacterBehaviour
             if (rollATK<atkBlockRatio)
             {
                 player.TakeDamage(baseDamage);
-                return "The enemy attack you !";
+                return "The enemy attacks you !";
             }
             else
             {
@@ -40,7 +40,7 @@ public class EnemyBehaviour : CharacterBehaviour
                 }
             }
         }
-        return "The enemy fail his attack !";
+        return "The enemy fails his attack !";
     }
 
     protected override void InitialiseHP()

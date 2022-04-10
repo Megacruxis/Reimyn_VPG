@@ -1,6 +1,10 @@
 fileFormatVersion: 2
 <<<<<<<< HEAD:ReimynsMemories/Assets/ScriptableObject/Cards/Boost.asset.meta
+<<<<<<< HEAD
+guid: 97edf56535b3ff84d921749aa0270121
+=======
 guid: fad9f774ae4cfa14b8488923d5f85364
+>>>>>>> 4738909517ea7c044a60c876b25ccaf9ec85b407
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
