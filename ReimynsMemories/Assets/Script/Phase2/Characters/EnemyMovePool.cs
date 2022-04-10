@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovePool : MonoBehaviour
+[CreateAssetMenu(fileName = "EnemyMovePool", menuName = "Scriptable/Enemy/EnemyMovePool/BaseMovePool")]
+public class EnemyMovePool : ScriptableObject
 {
     [SerializeField] private string moveName;
     [SerializeField] private string effectText;

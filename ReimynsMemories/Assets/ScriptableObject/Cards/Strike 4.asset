@@ -17,3 +17,4 @@ MonoBehaviour:
   effectText: Deal 7 damages
   cardFrontSprite: {fileID: 21300000, guid: 46602e6a7a1c92948a66ca95ce864863, type: 3}
   cardStatus: 0
+  damages: 7

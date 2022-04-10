@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Strike", menuName = "Scriptable/Card/Attack/Strike")]
-public class Strike : Card
+[CreateAssetMenu(fileName = "LightBall", menuName = "Scriptable/Card/Attack/LightBall")]
+public class LightBall : Card
 {
     [SerializeField] private int damages;
 
     public override void DoEffect(FriendlyBehaviour player, EnemyBehaviour opponent)
     {
         opponent.TakeDamage(damages);
-        Debug.Log("Strike " + opponent.GetCurrentHealthPoint());
+        Debug.Log("Bouboule " + opponent.GetCurrentHealthPoint());
     }
 }

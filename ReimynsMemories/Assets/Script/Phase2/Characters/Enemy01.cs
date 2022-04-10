@@ -8,9 +8,7 @@ public class Enemy01 : EnemyBehaviour
 {
     protected override void InitialiseHP()
     {
-        int start = 150;
-        currenthealthPoints = start;
-        maxHealthPoints = start;
+        currenthealthPoints = maxHealthPoints;
     }
 
     protected override void InitialiseBaseDamage()

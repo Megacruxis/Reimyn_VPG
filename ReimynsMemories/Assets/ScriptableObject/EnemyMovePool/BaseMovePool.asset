@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa76433189f66ff4b943845717aee06c, type: 3}
-  m_Name: Strike 7
+  m_Script: {fileID: 11500000, guid: b6dce78ebea662c42978282452371c65, type: 3}
+  m_Name: BaseMovePool
   m_EditorClassIdentifier: 
-  cardId: 7
-  cardName: Strike
-  effectText: Deal 7 damages
-  cardFrontSprite: {fileID: 21300000, guid: 5814c39ae859b1940be28bca8fea72e3, type: 3}
-  cardStatus: 0
-  damages: 7
+  moveName: 
+  effectText: 
+  moveSprite: {fileID: 0}
+  burnDamage: 10
+  internDamage: 0
+  nextMove: 0
