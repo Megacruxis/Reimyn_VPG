@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "Player", menuName = "Scriptable/Player/PlayerSO")]
 
@@ -11,6 +12,8 @@ public class FriendlyBehaviour : CharacterBehaviour
         int start = 80;
         currenthealthPoints = start;
         maxHealthPoints = start;
+        setHealth = new UnityEvent<int>();
+        setHealth.Invoke(start);
     }
 
 

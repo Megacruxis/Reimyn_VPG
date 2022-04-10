@@ -1,0 +1,13 @@
+Benjamin "I...{c}love{a} kiwi{wa 0.5} LOL {c} I"
+
+Thomas "CHOCO BN"
+
+choice
+{
+	"YES"
+		Benjamin "3KJHKH3"
+		load("chapitre1")
+		
+	"NON"
+		Thomas "42"
+}

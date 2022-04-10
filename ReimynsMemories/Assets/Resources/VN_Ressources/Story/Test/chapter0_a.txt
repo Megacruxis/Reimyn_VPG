@@ -1,0 +1,20 @@
+narrator "testNarra"
+
+Benjamin "a{w 2}b{a}c{c}d"
+
+"lechoixapres"
+
+choice fais un choix
+{
+	"CHOIX1"3
+		Benj "a"
+		"b"
+		"c"
+	"CHOIX2"2
+		"e"
+		"f"
+	"CHOIX3"1
+		load(chapter0_b)
+}
+
+"h"
