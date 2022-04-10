@@ -31,5 +31,16 @@ public class HealthBar : MonoBehaviour
         slider.value = health;
         printHP.text = (slider.value + "/" + slider.maxValue);
     }
-    
+
+    public void SetLinkedCharacter(CharacterBehaviour linkedCharacter)
+    {
+        this.linkedCharacter.setHealth.RemoveListener(SetMaxHealth);
+        this.linkedCharacter.changeHealth.RemoveListener(SetHealth);
+        this.linkedCharacter = linkedCharacter;
+        this.linkedCharacter.setHealth.AddListener(SetMaxHealth);
+        this.linkedCharacter.changeHealth.AddListener(SetHealth);
+        SetMaxHealth(linkedCharacter.GetMaxHealthPoints());
+        SetHealth(linkedCharacter.GetCurrentHealthPoint());
+    }
+
 }

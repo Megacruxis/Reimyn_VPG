@@ -34,6 +34,8 @@ public class MemoryCombatManager : MonoBehaviour
     private int faceUpCardIndex;
     private List<int> emptycardSlots;
     private UnityEvent gridIsFilledEvent;
+    private int maxNumberOfMove;
+    private int numberOfMoveLeft;
 
     private bool NewOpponent;
 
@@ -94,6 +96,7 @@ public class MemoryCombatManager : MonoBehaviour
         gridIsFilledEvent = new UnityEvent();
         gridIsFilledEvent.AddListener(GridIsFilled);
         NewOpponent = false;
+        maxNumberOfMove = 2;
     }
 
     private void Start()
@@ -102,6 +105,7 @@ public class MemoryCombatManager : MonoBehaviour
         {
             sprite.enabled = false;
         }
+        numberOfMoveLeft = maxNumberOfMove;
         StartCoroutine(InitPlayerAndOpponent());
         SetEmptyCardSlot();
         playerDeckSO.InitDeckForCombat();
@@ -230,8 +234,14 @@ public class MemoryCombatManager : MonoBehaviour
         selectedCardManager.FlipCard();
         cardSlots[faceUpCardIndex].FlipCard();
         ResetSelectedCard();
-        // cool end of turn annimation ?
-        isPlayerTurn = false;
+        if(numberOfMoveLeft == 1)
+        {
+            // cool end of turn annimation ?
+            isPlayerTurn = false;
+        } else
+        {
+            numberOfMoveLeft -= 1;
+        }
     }
 
     public void SetCanResetGrid(bool value)
@@ -345,6 +355,7 @@ public class MemoryCombatManager : MonoBehaviour
         // ennemy attack
 
         isPlayerTurn = true;
+        numberOfMoveLeft = maxNumberOfMove;
         player.NewTurn();
         cardIsClickedEvent.AddListener(CardIsClicked);
     }
@@ -373,6 +384,8 @@ public class MemoryCombatManager : MonoBehaviour
     {
         opponents[currentOpponentIndex].Init(this);
         opponentsSprite[currentOpponentIndex].enabled = true;
+        opponentHealthBar.SetLinkedCharacter(opponents[currentOpponentIndex]);
+        opponentShieldBar.SetLinkedCharacter(opponents[currentOpponentIndex]);
     }
 
     private IEnumerator StartNextFight()
