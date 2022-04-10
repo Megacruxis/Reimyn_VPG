@@ -57,9 +57,19 @@ public abstract class CharacterBehaviour : ScriptableObject
     
     public void TakeDamage(int dmg)
     {
-        if (shield>dmg) 
+        if (shield>0) 
         {
-            shield -= dmg;
+            if (shield>dmg)
+            {
+                shield -= dmg;
+            }
+            else
+            {
+                int realDmg = shield-dmg;
+                ChangeHP(realDmg);
+                changeHealth.Invoke(currenthealthPoints);
+                shield = 0;
+            }
             changeShield.Invoke(shield);    
         }
         else
