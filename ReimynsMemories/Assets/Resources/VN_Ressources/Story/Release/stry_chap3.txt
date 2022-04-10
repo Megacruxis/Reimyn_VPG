@@ -29,4 +29,4 @@ Aleebu "Hmm..."
 hideSprite(reimyn) displaySprite(5)
 Reimyn "Bon,{a} il est temps de faire le ménage.{c}Reste bien derrière moi.{c}Purifions ces choses.{c}En commençant par celle-ci !"
 
-startMemory()
+startMemory(WIP_Scene/Thomas)
