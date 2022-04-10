@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuButton : MonoBehaviour
 {
@@ -17,7 +18,6 @@ public class MenuButton : MonoBehaviour
 
     public void ButtonClicked()
     {
-        //TODO go to main menu or save
-        Application.Quit();
+        SceneManager.LoadScene("Scenes/MainMenu");
     }
 }
