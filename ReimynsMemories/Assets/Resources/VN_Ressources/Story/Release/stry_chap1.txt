@@ -1,4 +1,7 @@
+"..."
 setBackground(0)
+
+playSong(1)
 
 displaySprite(11)
 
@@ -16,13 +19,17 @@ Aleebu "Hey Rei' !{a}Quoi de neuf ?"
 
 choice
 {
-	"Je ne m'appelle pas Rei'."1
+
+	"Je ne m'appelle pas Rei'."2
+		hideSprite(reimyn) displaySprite(5)
 		Reimyn "Combien de fois je devrais te le répèter stupide farfadet...?{c}Mon nom c'est : R-e-i-m-y-n."
 
-	"En quoi cela te concerne ?"1
+	"En quoi cela te concerne ?"2
+		hideSprite(reimyn) displaySprite(9)
 		Reimyn "Ce ne sont pas tes oignons à ce que je sache...?"
 
-	"* L'ignorer *"1
+	"* L'ignorer *"2
+		hideSprite(reimyn) displaySprite(10)
 		Reimyn "..."
 }
 
@@ -33,14 +40,15 @@ choice
 	"*S'excuser avec ironie *"1
 		Reimyn "Oh fichtre !{c}Toutes mes excuses votre altesse !{c}Je m'en vais de ce pas me goinfrer de ces légumes !"
 
-	"*S'excuser poliment *"1
+	"*S'excuser poliment *"2
+		hideSprite(reimyn) displaySprite(11)
 		Reimyn "Oui pardon tu as raison...{c}Excuse moi."
 
-	"*L'ignorer *"1
+
+	"*L'ignorer *"2
+		hideSprite(reimyn) displaySprite(10)
 		Reimyn "..."
 }
-
-
 
 Aleebu "Pfff...{a}Enfin bref...{c}Hé c'est quoi ce papier ?"
 
@@ -50,17 +58,23 @@ Aleebu "Ah ? Pourquoi faire ?"
 
 Reimyn "Ça va bientôt faire 1 mois que tu séjournes au QG comme un animal de compagnie...{c}Il serait peut-être temps que je t'apprenne ce qu'on y fait non ?"
 
+hideSprite(aleebu) displaySprite(1)
 Aleebu "Je serais pas contre une petite piqure de rappel hehe !"
 
 choice
 {
-	"* Expliquer très rapidement *"1
-		Reimyn "Les traumatismes des habitants du Royaume alimentent un flux qui génère des créatures maléfiques.{c}Et notre tâche est donc de les purifier par notre magie de la lumière."
 
-	"* Expliquer avec précision *"1
+	"* Expliquer très rapidement *"2
+		hideSprite(reimyn) displaySprite(10)
+		Reimyn "Les traumatismes des habitants du Royaume alimentent un flux qui génère des créatures maléfiques.{c}Et notre tâche est donc de les purifier par notre magie de la lumière."
+	"* Expliquer avec précision *"2
+		hideSprite(reimyn) displaySprite(11)
 		Reimyn "Comme tu le sais sûrement, notre monde est alimenté par les divers flux de la magie.{c}C'est d'ailleurs en maniant ce flux que nous autres Purificateurs, maîtrisons la magie de la lumière.{c}Toujours est-il que ces flux ne s'avèrent pas toujours aussi bénéfiques.{c}En effet, ces derniers peuvent être à l'origine du mal.{c}Les souvenirs blessants, les traumatismes, les mémoires remplies de sombres évènements...{c}Ce sont les principaux facteurs qui génèrent les créatures des ombres.{c}Des manifestations physiques du mélange de ces idées noires, qui sèment le chaos.{c}Ces entités sont démunies de toute âme, bien qu'ils laissent croire le contraire.{c}Ils sont dangereux, et c'est pourquoi nous devons tous les neutraliser.{c}Et c'est là qu'interviennent les Purificateurs !{c}	Des individus qui excellent dans l'art de la magie de la lumière.{c}Les créatures des ombres sont vulnérables à nos pouvoirs.{c}Nous devons donc les user à bon escient pour assurer la sûreté du Royaume."
 
-	"* Expliquer maladroitement *"1
+
+
+	"* Expliquer maladroitement *"2
+		hideSprite(reimyn) displaySprite(8)
 		Reimyn "Bon... Alors...{c}Par où commencer...{c}...Euh...{c}Dans le monde, y'a de la magie, enfin des flux magiques pour faire plus simple.{c}Et en maîtrisant ces flux, on maîtrise la magie en quelques sortes.{c}Et parfois ces flux peuvent être alimentés par les sources du mal.{c}Tous les mauvais souvenirs et les traumatismes des habitants du Royaume y voyagent.{c}Cela a pour effet de crée des sortes de créatures démoniaques.{c}Concrètement, on parle plutôt de créatures des ombres.{c}...Enfin je crois...{c}Et ces créatures sont plutôt dangereuse pour les citoyens.{c}Alors le rôle des Purificateurs c'est, de, et bien...{c}Purifier ces abominations !{c}C'est à peu près ça..."
 }
 
@@ -69,13 +83,18 @@ Aleebu "Hmmm, je vois je vois...{c}C'était plutôt clair{wa 0,5}, merci Profess
 
 choice
 {
-	"Avec plaisir."1
+
+	"Avec plaisir."2
+		hideSprite(reimyn) displaySprite(13)
 		Reimyn "Avec grand plaisir !{c}En espérant que ça t'ai aidé..."
 
-	"Arrête avec ce surnom"1
+
+	"Arrête avec ce surnom"2
+		hideSprite(reimyn) displaySprite(12)
 		Reimyn "Mais arrête donc avec ce surnom...{c}Je m'appelle : Reimyn.{c}Moi je ne t'appelle euh... A'bu, que je sache...?"
 
-	"* Ne rien répondre *"1
+	"* Ne rien répondre *"2
+		hideSprite(reimyn) displaySprite(10)
 		Reimyn "..."
 }
 
@@ -95,17 +114,24 @@ Aleebu "Mais tu ne devrais pas t'y rendre avec d'autres Purificateurs ?"
 
 Reimyn "Ne t'inquiètes  pas pour ça...{c}Je fais tout de même partie de l'élite pour ta gouverne."
 
+hideSprite(aleebu) displaySprite(4)
 Aleebu "Ah ? O...Ok..."
 
 choice
 {
-	"Un problème ?"1
+
+
+	"Un problème ?"2
+		hideSprite(reimyn) displaySprite(8)
 		Reimyn "Il y a un problème Aleebu ?"
 
-	"Tu as un truc à me demander ?"1
+	"Tu as un truc à me demander ?"2
+		hideSprite(reimyn) displaySprite(13)
 		Reimyn "Oh toi{wa 0,5}, je sens que tu as une question sur le bout de la langue."
 
-	"* Ne rien répondre *"1
+
+	"* Ne rien répondre *"2
+		hideSprite(reimyn) displaySprite(10)
 		Reimyn "..."
 }
 
@@ -113,18 +139,26 @@ Aleebu "Dis...{wa 1}Je peux t'accompagner...?"
 
 choice
 {
-	"Ah ah... Toi ?!"1
+
+
+	"Ah ah... Toi ?!"2
+		hideSprite(reimyn) displaySprite(13)
 		Reimyn "Ahah ? Toi ?!{c}Et pourquoi faire au juste ?{c}Remarque{wa 0,5}, je peux toujours concevoir l'idée d'avoir des spectateurs...{c}Non je rigole{wa 0,3}, tu restes là."
 
-	"Non."1
+
+	"Non."2
+		hideSprite(reimyn) displaySprite(5)
 		Reimyn "Certainement pas."
 
-	"C'est une mauvaise idée."1
+
+
+	"C'est une mauvaise idée."2
+		hideSprite(reimyn) displaySprite(11)
 		Reimyn "Hmm...{c}Arf...{c}Écoute{wa 0,5}, je ne pense pas que ce soit une excellente idée...{c}C'est plutôt dangereux pour toi à vrai dire..."
 }
-
+hideSprite(aleebu) displaySprite(4)
 Aleebu "S'IL TE PLAÎT ! S'IL TE PLAÎT ! S'IL TE PLAÎT !"
-
+hideSprite(reimyn) displaySprite(5)
 Reimyn "J'ai dit non."
 
 Aleebu "ALLEEEEEEEEEZ QUOI !!!"
@@ -143,13 +177,19 @@ Aleebu "Mais non mais non voyons{wa 0,5}, puisque je suis là !"
 
 choice
 {
-	"C'est justement ça le problème."1
+
+	"C'est justement ça le problème."2
+		hideSprite(reimyn) displaySprite(11)
 		Reimyn "Ahah !{c}Justement{a}, imbécile de farfadet...{c}C'est bien parce que tu es dans mes pattes que je le sens mal.{c}Mais bon après tout, je peux faire un effort..."
 
-	"* Jouer le jeu *"1
+
+	"* Jouer le jeu *"2
+		hideSprite(reimyn) displaySprite(13)
 		Reimyn "Quelle aubaine !{c}Je me sens tout de suite en pleine sécurité ahaha !"
 
-	"* Ne rien répondre *"1
+
+	"* Ne rien répondre *"2
+		hideSprite(reimyn) displaySprite(13)
 		Reimyn "..."
 }
 

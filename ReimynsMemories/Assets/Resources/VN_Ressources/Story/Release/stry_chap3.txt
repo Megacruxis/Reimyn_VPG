@@ -1,0 +1,32 @@
+"..."
+
+setBackground(1)
+
+narrator "* Nos deux héros pénètrent dans la Citadelle. *"
+
+hideSprite(reimyn) hideSprite(aleebu) displaySprite(9) displaySprite(4)
+
+Reimyn "Je m'en doutais,{a} cet endroit est infesté de créatures des ombres...{c}Je pourrais presque ressentir les mêmes traumatismes que ceux qui hantent les lieux."
+
+Aleebu "Cette sensation...{a}Elle...{a}Elle est si étouffante..."
+
+choice {
+    "* Rassurer Aleebu *"2
+        hideSprite(reimyn) displaySprite(11)
+        Reimyn "Ne t'en fais pas Aleebu...{c}Je suis là pour te protéger."
+
+    "* Donner des explications *"2
+        hideSprite(reimyn) displaySprite(10)
+        Reimyn "Ce sont les flux magiques qui sont corrompus.{c}Toi tu es un farfadet,{a} un être de magie.{c}De ce fait les flux qui te parcourent te semblent dégoûtants et néfastes.{c}Ça explique ta sensation d'étouffement.
+
+    "* Ne rien répondre *"2
+        hideSprite(reimyn) displaySprite(11)
+        Reimyn "..."
+}
+
+Aleebu "Hmm..."
+
+hideSprite(reimyn) displaySprite(5)
+Reimyn "Bon,{a} il est temps de faire le ménage.{c}Reste bien derrière moi.{c}Purifions ces choses.{c}En commençant par celle-ci !"
+
+startMemory()

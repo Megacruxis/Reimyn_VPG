@@ -236,7 +236,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 118.036255, y: 21.001465}
+  m_AnchoredPosition: {x: 286, y: -143}
   m_SizeDelta: {x: 1723.7471, y: 764.1401}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &291808897
@@ -272,15 +272,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Actions possible lors de la premi\xE8re partie du jeux :\n\n& - Bouton
-    Auto                       -> avance automatiquement le dialogue\n\xE9 - Bouton
-    Suivant                  -> avance le dialogue\n\" - Bouton Retour - ESPACE ->
-    retourne en arri\xE8re dans le dialogue\n' - Bouton Skip                         
-    -> avance rapidement jusqu'au prochain choix\r\n( - Bouton Menu                      
-    -> retourne au menu principal\n\nVous pourez influencez l'histoire lors de choix.
-    Pour cela cliquez sur le bouton correspondant a votre d\xE9cision.\n\nAttention
-    tous les dialogues n'avancent pas lors de la demande de l'utilisateur, certain
-    avancent automatique apr\xE8s un certain temps.\n"
+  m_Text: "Cette derni\xE8re cr\xE9ature t'as parue famili\xE8re ?\r\nC'\xE9tait
+    Aleebu...\r\nIl a succomb\xE9 \xE0 la corruption et est devenu une cr\xE9ature
+    de l'ombre lui aussi.\r\nTu l'as purifi\xE9.\r\nNe t'en fais pas Reimyn...\r\nIl
+    n'y avait pas d'autres moyens d'\xE9viter cela.\r\n\r\nTu as fais ce qu'il y
+    avait \xE0 faire."
 --- !u!222 &291808898
 CanvasRenderer:
   m_ObjectHideFlags: 0
