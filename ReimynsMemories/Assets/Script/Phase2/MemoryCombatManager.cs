@@ -348,7 +348,9 @@ public class MemoryCombatManager : MonoBehaviour
     private IEnumerator ExectuteEnemyMove()
     {
         //ennemy annimation start
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
+        Debug.Log(opponents[currentOpponentIndex].ExectuteNextMove(player));
+        yield return new WaitForSeconds(0.2f);
         // ennemy attack
 
         isPlayerTurn = true;
