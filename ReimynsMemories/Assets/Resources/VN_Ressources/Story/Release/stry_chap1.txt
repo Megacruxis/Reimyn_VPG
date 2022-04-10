@@ -1,12 +1,12 @@
 setBackground(0)
 
-narator "*Un oiseau vient se poser sur le bord de la fenêtre{wa 1}, avec un petit parchemin accroché à la patte droite*"
-
 displaySprite(11)
+
+narrator "*Un oiseau vient se poser sur le bord de la fenêtre{wa 1}, avec un petit parchemin accroché à la patte droite*"
 
 Reimyn "Approche, approche, donne moi ça..."
 
-narator "*Reimyn récupère le message{wa 0,5}, l'oiseau repart aussitôt*"
+narrator "*Reimyn récupère le message{wa 0,5}, l'oiseau repart aussitôt*"
 
 Reimyn "*Reimyn se met alors à le lire avec attention*"
 
