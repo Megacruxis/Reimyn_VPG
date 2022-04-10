@@ -9,6 +9,7 @@ public class MemoryCombatManager : MonoBehaviour
     [Header("Player info")]
     [SerializeField] private FriendlyBehaviour player;
     [SerializeField] private PlayerDeckSO playerDeckSO;
+    [SerializeField] private int maxNumberOfMove = 2;
 
     [Header("Opponents info")]
     [SerializeField] private List<EnemyBehaviour> opponents;
@@ -34,7 +35,6 @@ public class MemoryCombatManager : MonoBehaviour
     private int faceUpCardIndex;
     private List<int> emptycardSlots;
     private UnityEvent gridIsFilledEvent;
-    private int maxNumberOfMove;
     private int numberOfMoveLeft;
 
     private bool NewOpponent;
@@ -96,7 +96,6 @@ public class MemoryCombatManager : MonoBehaviour
         gridIsFilledEvent = new UnityEvent();
         gridIsFilledEvent.AddListener(GridIsFilled);
         NewOpponent = false;
-        maxNumberOfMove = 2;
     }
 
     private void Start()
